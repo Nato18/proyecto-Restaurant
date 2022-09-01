@@ -1,0 +1,12 @@
+extends ../layout/index
+
+block contenido
+    div 
+        h2.titulo= pagina
+    div
+    
+
+    p(class= error ? "token_error" : "token_bien")= mensaje
+
+    if !error
+        a(href="/auth/login") Ya puedes Iniciar sesion 

@@ -1,0 +1,25 @@
+extends ../layout/index
+
+block contenido
+    div 
+        h2.titulo= pagina
+    div
+
+    if errores
+        div
+            each error in errores
+                p.error= error.msg
+
+    form(method="POST" action="/auth/login")
+        input(type="hidden" name="_csrf" value= csrfToken  )
+        div 
+            label(for="email") Correo Electronico
+            input#email(placeholder="Correo Electronico", type="text", name="email")
+        div 
+            label(for="contrasena") Contraseña
+            input#contrasena(placeholder="Contraseña", type="password", name="contrasena")                            
+        div 
+        a(href="/auth/registro") ¿No tienes cuenta? Crea una
+        a(href="/auth/olvide-password") Olvide mi Contraseña
+
+        input(type="submit", value="Iniciar Sesion")
