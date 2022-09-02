@@ -7,6 +7,20 @@ html(lang="en")
         title Tesis | #{pagina}
         link(rel="stylesheet", href="/css/style.css") 
     body 
+        header.header 
+            h2 imagen
+            div.opciones
+                p inicio
+                p Quienes Somos
+                p Menu
+                p Ubicacion y Contacto
+
+            div.sesion 
+                a(href="/reserva") Reservar Ahora
+                a(href="/moderador/opcion_moderador") Perfil
+                a(href="/") Cerrar Sesion
+
+
         main(class="main")
         
             block contenido

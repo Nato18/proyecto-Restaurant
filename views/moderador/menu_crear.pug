@@ -1,0 +1,22 @@
+extends opcion_moderador 
+
+block opciones_moderador
+    h2= pagina
+    div 
+        label(for="categoria") Categoria
+        select#categoria(name="categoria") 
+            option(value="") - Seleccione - 
+    div 
+        label(for="nombre") Nombre 
+        input(type="text", placeholder="Nombre del Producto",name="nombre") 
+    div 
+        label(for="descripcion") Descripcion 
+        input(type="text", placeholder="Descripcion del Producto",name="descripcion") 
+    div 
+        label(for="precio") Precio
+        input(type="text", placeholder="Precio del Producto",name="precio") 
+    div 
+        label(for="imagen") Imagen 
+        input(type="image", value="") 
+
+    p Agregar Producto

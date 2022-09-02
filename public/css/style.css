@@ -1,11 +1,68 @@
-.main{
-    width: 1000px;
-    margin: 0 auto;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap");
+
+body {
+  font-family: "Inter", sans-serif;
 }
-.titulo{
-    text-align: center;
-    font-size: 20px;
+
+.link{
+  text-decoration: none;
 }
-.error{
-    color:red
+.main {
+  width: 1000px;
+  margin: 0 auto;
+}
+.titulo {
+  text-align: center;
+  font-size: 20px;
+}
+.nombre{
+  text-align: center;
+  font-size: 40px;
+  margin-top: 45px;
+  margin-bottom: 28px;
+}
+.error {
+  color: red;
+}
+
+/* Inicio de Pagina */
+
+/* Header */
+.header {
+  background-color: brown;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  align-items: center;
+  justify-items: center;
+}
+
+.opciones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.sesion{
+    display: flex;
+    gap:20px
+}
+
+/* Menu de Moderador */
+.opciones_mode{
+  display: flex;
+  justify-content: space-around;
+}
+
+.opcion_mode{
+  color: black;
+  font-size: 14px;
+}
+
+/* Gestion de Menu */
+
+.opciones_menu{
+  display: grid;
+  grid-template-rows: repeat(3,1fr);
+  gap: 10px;
 }
