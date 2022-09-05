@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node main.js",
-    "server": "nodemon main.js"
+    "server": "nodemon main.js",
+    "db:importar": "node ./seed/seeder.js -i",
+    "db:eliminar": "node ./seed/seeder.js -e"
   },
   "keywords": [
     "tesis"

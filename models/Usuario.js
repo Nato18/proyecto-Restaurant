@@ -26,6 +26,13 @@ const Usuario = db.define(
         usuario.contrasena = await bcrypt.hash(usuario.contrasena, salt);
       },
     },
+    scopes:{
+      eliminarContraseña:{
+        attributes:{
+          exclude: ['contrasena', "token", "confirmado", "createdAt", "updatedAt"]
+        }
+      }
+    }
   }
 );
 

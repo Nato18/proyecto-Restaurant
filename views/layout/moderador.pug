@@ -1,0 +1,15 @@
+extends ../layout/index
+
+block contenido
+    div
+        h2.nombre= nombre
+    div.opciones_mode 
+        a(href="" class="link opcion_mode") Reservar 
+        a(href="" class="link opcion_mode") Ver reservaciones 
+        a(href="/moderador/gestionar_mesa" class="link opcion_mode") Gestionar Mesas
+        a(href="/moderador/gestionar_menu" class="link opcion_mode") Gestionar Menu 
+        a(href="" class="link opcion_mode") Gestionar Administradores
+        a(href="" class="link opcion_mode") Configuracion de la cuenta
+
+    div 
+        block opciones_moderador
