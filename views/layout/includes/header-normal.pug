@@ -1,0 +1,17 @@
+header.header 
+    h2 imagen
+    div.opciones
+        a(href="/") inicio
+        a(href="/quienes-somos") Quienes Somos
+        a(href="/ver-menu/1") Menu
+        a(href="/ubicacion-contacto") Ubicacion y Contacto
+
+    div.sesion 
+        a(href="/reserva/realizar-reserva").btnHeader.reserva Reservar Ahora
+        if _token
+            a(href="/opciones/opciones-usuario") Perfil
+            a(href="/auth/registro") Cerrar Sesion
+        else    
+            a(href="/auth/login").btnHeader.iniciaSesion Iniciar Sesion
+            a(href="/auth/registro") Registrarse
+

@@ -5,22 +5,17 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Tesis | #{pagina}
+        link(rel="stylesheet" href="css/normalize.css")
         link(rel="stylesheet", href="/css/style.css") 
+        block styles
     body 
-        header.header 
-            h2 imagen
-            div.opciones
-                p inicio
-                p Quienes Somos
-                p Menu
-                p Ubicacion y Contacto
 
-            div.sesion 
-                a(href="/reserva") Reservar Ahora
-                a(href="/moderador/opcion_moderador") Perfil
-                a(href="/") Cerrar Sesion
-
-
-        main(class="main")
-        
+        //- include includes/header-normal
+        include includes/header-normal
+        main
+            
             block contenido
+            
+        footer 
+            include includes/footer
+        block scripts

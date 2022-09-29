@@ -1,0 +1,47 @@
+extends ../layout/opciones_usuario
+
+block opciones_moderador
+    h2= pagina
+    div.opciones_menu
+        a(href="/menu/menu_crear" class="link") Agregar Producto
+        form(action="/menu/buscador" method="POST" )
+            input(type="hidden" name="_csrf" value= csrfToken)
+            label(for="termino") Busqueda 
+            input(type="text" id="termino" name="termino" placeholder="Buscar Producto")
+            input(type="submit" value="Buscar")
+      
+    if productos.length
+        div
+            ul
+                each producto in productos
+                    il
+                        div(class="contenedor")
+                            div
+                                img(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt=`Imagen producto ${producto.titulo}`)
+                                    
+                            div
+                                p= producto.titulo
+                                p= producto.categoria.nombre
+                                p= producto.descripcion
+                                p= producto.precio
+                            div
+                                a(href=`/menu/editar/${producto.id }`) Editar
+                                form(method="POST" action=`/menu/eliminar/${producto.id}`)
+                                    input(type="hidden" name="_csrf" value= csrfToken)
+                                    input(type="submit" value="Eliminar")                        
+
+        div 
+            div 
+                p Mostrando 
+                    span #{offset + 1}  a 
+                    span #{total < limit + offset ? total : limit + offset} de   
+                    span #{total} resultados
+
+            div
+                div
+                    nav
+                        - var n = 1;
+                            while n <= paginas
+                                a(href=`/menu/gestionar_menu?pagina=${n}`) #{n++}
+    else
+        p No hay Productos

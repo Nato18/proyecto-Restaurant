@@ -1,0 +1,35 @@
+extends ../layout/opciones_usuario
+
+block opciones_moderador
+
+    p= pagina
+    div.opciones_menu
+        a(href="/admin/admin-crear" class="link") Agregar Administrador
+        form(action="/admin/buscador" method="POST" )
+            input(type="hidden" name="_csrf" value= csrfToken)
+            label(for="termino") Busqueda 
+            input(type="text" id="termino" name="termino" placeholder="Buscar Administrador")
+            input(type="submit" value="Buscar")
+
+    div.etiquetasAdmin
+        p Nombre Completo
+        p Numero de Telefono
+        p Correo Electronico
+        p Opciones
+    div.datosAdmin
+        if administradores.length
+            each admin in administradores
+
+                    p= admin.nombre
+                    p= admin.telefono
+                    p= admin.email
+
+                    div
+                        a(href=`/admin/admin-editar/${admin.id}`) Editar
+                        form(method="POST" action=`/admin/eliminar/${admin.id}`)
+                            input(type="hidden" name="_csrf" value= csrfToken)
+                            input(type="submit" value="Eliminar") 
+
+        else
+
+            p No Existen Administradores 

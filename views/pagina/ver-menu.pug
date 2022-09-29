@@ -1,0 +1,26 @@
+extends ../layout/index
+
+block contenido
+    div.contenedorGeneral
+        p.tituloPaginas= pagina
+
+        div.categorias
+            a(href="/ver-menu/1") Entradas
+            a(href="/ver-menu/2") Ensaladas
+            a(href="/ver-menu/3") Platos Fuertes
+            a(href="/ver-menu/4") Postres
+            a(href="/ver-menu/5") Bebidas
+        div 
+            p.tituloCategoria #{Categoria.nombre}
+            if productos.length
+                each producto in productos
+                    div.contenedorProducto
+                        div.productoTextos
+                            p.tituloProducto #{producto.titulo} 
+                            p.descripcionProducto #{producto.descripcion}
+                            p.precioProducto $#{producto.precio}
+                        div
+                            img.imgProducto(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt="")
+                    
+            else
+                p No hay Producto

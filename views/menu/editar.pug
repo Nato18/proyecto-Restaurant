@@ -1,0 +1,30 @@
+extends ../layout/opciones_usuario
+
+block opciones_moderador
+    h2= pagina
+
+    if errores
+        div
+            each error in errores
+                p.error= error.msg
+    form(method="POST") 
+        input(type="hidden", name="_csrf" value= csrfToken)
+        div 
+            label(for="categoria") Categoria
+            select#categoria(name="categoria") 
+                option(value="") - Seleccione - 
+                each categoria in categorias
+                    option(value=categoria.id selected= datos.categoriaId ? datos.categoriaId == categoria.id ? true : false : null)= categoria.nombre 
+        div 
+            label(for="titulo") Nombre 
+            input(type="text" placeholder="Nombre del Producto" name="titulo", value= datos.titulo ? datos.titulo : "") 
+        div 
+            label(for="descripcion") Descripcion 
+            textarea#descripcion(name="descripcion", cols="30", rows="10", placeholder="Descripcion de la Propiedad")= datos.descripcion ? datos.descripcion : ""  
+        div 
+            label(for="precio") Precio
+            input(type="number", placeholder="Precio del Producto",name="precio" value = datos.precio ? datos.precio : "") 
+        div 
+            label(for="imagen") Imagen 
+            input(type="submit", value="Guardar Cambios") 
+        p Agregar Producto

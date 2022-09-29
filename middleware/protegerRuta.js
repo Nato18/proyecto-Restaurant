@@ -2,8 +2,6 @@ import jwt from "jsonwebtoken";
 import { usuario } from "../models/index.js";
 
 const protegerRuta = async (req, res, next) => {
-  console.log("desde el Middleware");
-
   //Verificar si hay token
   const { _token } = req.cookies;
   if (!_token) {
@@ -20,7 +18,7 @@ const protegerRuta = async (req, res, next) => {
     // Almacenar usuario en req
     if (Usuario) {
       req.usuario = Usuario;
-      console.log("usuario: ", req.usuario.id);
+      
     } else {
       return res.redirect("/auth/login");
     }

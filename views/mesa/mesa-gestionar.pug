@@ -1,0 +1,25 @@
+extends ../layout/opciones_usuario
+
+block opciones_moderador
+    h2= pagina
+    div.etiquetasMesa
+        p Fecha de Reserva
+        p Hora de Reserva
+        p Personas
+        p Comida
+        p Estado 
+        p Codigo
+        p
+    div.datosReserva
+        if reservas.length
+            each reserva in reservas
+
+                    p= reserva.fecha
+                    p= reserva.hora.hora
+                    p= reserva.personas
+                    p= reserva.comida
+                    p
+                    p Codigo
+
+                    div
+                        a(href="#") Editar

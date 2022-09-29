@@ -1,0 +1,17 @@
+extends ../layout/opciones_usuario
+
+block styles 
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css")
+    meta(name="csrf-token" content= csrfToken)
+
+block opciones_moderador
+    h2= pagina
+
+    form(id="imagen" class="dropzone" method="POST" action=`/menu/agregar-imagen/${Producto.id}`) 
+        input(type="hidden", name="_csrf" value= csrfToken)
+         
+    button(id="publicar" type="button",) Publicar Producto 
+
+
+block scripts
+    script(src="/js/agregarImagen.js") 

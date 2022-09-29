@@ -1,68 +1,541 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+p {
+  margin: 0;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+.contenedor {
+  max-width: 132rem;
+
+  margin: 0 auto;
+}
+.contenedorGeneral {
+  max-width: 110rem;
+  min-height: 70rem;
+  margin: 0 auto;
+}
 body {
   font-family: "Inter", sans-serif;
+  margin: 0;
 }
 
-.link{
+a {
   text-decoration: none;
+  color: black;
 }
-.main {
-  width: 1000px;
-  margin: 0 auto;
+.link {
+  text-decoration: none;
 }
 .titulo {
   text-align: center;
-  font-size: 20px;
+  font-size: 2rem;
 }
-.nombre{
+.nombre {
   text-align: center;
-  font-size: 40px;
-  margin-top: 45px;
-  margin-bottom: 28px;
+  font-size: 4rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2.8rem;
 }
 .error {
   color: red;
+}
+
+/* Vista de Pagina */
+.tituloPaginas {
+  margin-top: 1.5rem;
+  font-weight: 700;
+  font-size: 40px;
+  text-align: center;
+}
+.descripcionPaginas {
+  margin-top: 6rem;
+  font-weight: 500;
+  font-size: 2rem;
+  /* line-height: 3rem; */
 }
 
 /* Inicio de Pagina */
 
 /* Header */
 .header {
-  background-color: brown;
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;
   align-items: center;
   justify-items: center;
+  border-bottom: 0.1rem solid rgb(184, 184, 184);
 }
-
 .opciones {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: 4rem;
+}
+.sesion {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.cerrarSesion {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  background-color: white;
+  border: 0px;
+}
+.btnHeader {
+  background-color: #845e02;
+  color: white;
+  font-weight: 500;
+  padding: 1rem 2rem;
+  border-radius: 0.6rem;
 }
 
-.sesion{
-    display: flex;
-    gap:20px
-}
+/* Footer */
 
-/* Menu de Moderador */
-.opciones_mode{
+.footer {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  justify-items: center;
+  align-items: center;
+  font-weight: 700;
+}
+.imgFooter {
+  width: 3.3rem;
+  height: 3.2rem;
+}
+.imgRedes {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   display: flex;
   justify-content: space-around;
 }
+/* Pagina de Inicio */
 
-.opcion_mode{
+/* Clases Generales */
+
+.tituloInicioBlanco {
+  margin-top: 4.6rem;
+  margin-bottom: 1.6rem;
+  color: white;
+  font-weight: 700;
+  font-size: 3rem;
+}
+.descripcionInicioBlanco {
+  margin-bottom: 3rem;
+  color: white;
+  font-weight: 500;
+  font-size: 3rem;
+}
+.tituloInicioCafe {
+  margin-top: 4.6rem;
+  margin-bottom: 1.6rem;
+  color: #845e02;
+  font-weight: 700;
+  font-size: 3rem;
+}
+.descripcionInicioCafe {
+  margin-bottom: 4rem;
+  color: #845e02;
+  font-weight: 500;
+  font-size: 3rem;
+}
+.contenedor-des {
+  max-width: 64rem;
+}
+.flechaBlanco {
+  width: 10rem;
+  height: 6rem;
+  transform: rotateY(3.142rad);
+}
+.flechaCafe {
+  width: 10rem;
+  height: 6rem;
+  position: relative;
+  left: 55rem;
+}
+
+/* Clases de secciones de inicio */
+.imagenInicio {
+  width: 130.4rem;
+  height: 33rem;
+  font-size: 5rem;
+}
+.letraInicio {
+  color: white;
+  font-weight: 700;
+  position: relative;
+  left: 50rem;
+  bottom: 9rem;
+  width: 20rem;
+}
+.seccionInicioBlanco {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  background-color: #845e02;
+  gap: 2rem;
+}
+.imgSeccionInicio {
+  width: 56.8rem;
+  height: 29.7rem;
+}
+.seccionInicioCafe {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-items: center;
+  background-color: #f0f0f0;
+  gap: 2rem;
+}
+
+/* Quienes Somos */
+.quienesSomos {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+.imgquienesSomos {
+  width: 45rem;
+  height: 25rem;
+  border: solid 0.1rem black;
+  margin-bottom: 5rem;
+}
+.espacio {
+  margin-bottom: 2.5rem;
+}
+
+/* Ubicacion y Contacto */
+.ubicacion {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+.imgUbicacion {
+  width: 40rem;
+  height: 25rem;
+}
+.descripcionContacto {
+  font-size: 2rem;
+  margin-top: 4rem;
+}
+
+/* Registro */
+.registro {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.login {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+.imgRegistro {
+  width: 60rem;
+  height: 55rem;
+  object-fit: cover;
+}
+.imgLogin {
+  width: 60rem;
+  height: 55rem;
+  object-fit: cover;
+}
+.tituloLogins {
+  margin-top: 1.5rem;
+  font-weight: 700;
+  font-size: 40px;
+  margin-bottom: 1.5rem;
+}
+.divLogins {
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.labelLogins {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.7rem;
+  position: relative;
+}
+.inputLogins {
+  font-family: "Poppins", sans-serif;
+  background-color: #dde1cd;
+  border: 0px;
+  border-radius: 0.4rem;
+  width: 28rem;
+  height: 5rem;
+  padding-left: 1.5rem;
+}
+.divContrasenas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.btnLogins {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: white;
+  width: 21rem;
+  height: 4.3rem;
+  background-color: #845e02;
+  box-shadow: 0px 0px 30px rgba(99, 122, 48, 0.4);
+  border-radius: 0.4rem;
+  border: 0rem;
+  margin-top: 2rem;
+  cursor: pointer;
+}
+.div_aRegistro {
+  margin-top: 2.5rem;
+  margin-left: 15rem;
+}
+.div_aLogin {
+  margin-top: 2.5rem;
+  margin-left: 6rem;
+}
+.aLogins {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+}
+.spanLogins {
+  color: #00a3ff;
+}
+.posLogin {
+  margin-right: 2rem;
+}
+.posFormLogin {
+  margin-left: 14rem;
+  margin-top: 6rem;
+}
+
+/* Reserva */
+
+.inputReserva {
+  font-family: "Poppins", sans-serif;
+  background-color: #dde1cd;
+  border: 0rem;
+  border-radius: 0.4rem;
+  width: 15rem;
+  height: 3.5rem;
+  padding-left: 1.5rem;
+  padding-right: 0.5rem;
+}
+.marginReserva {
+  margin-top: 1rem;
+}
+.btnsRadio {
+  display: flex;
+  align-content: center;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+.btnRadio {
+  width: 5rem;
+  height: 2rem;
+}
+/*** Reserva Comida  ***/
+
+.contenedorReservaProducto {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  border-bottom: 0.1rem solid rgb(235 235 235);
+  padding: 1rem 0;
+}
+.contenedorReservaProducto div:nth-child(3) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carrito {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  justify-items: center;
+}
+
+.cantidadNombreCarrito {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  width: 75rem;
+}
+.tituloCarrito{
+  font-size: 2rem;
+}
+.cantidadCarrito{
+  font-size: 1.5rem;
+  margin-left: 2.5rem;
+}
+.nombreCarrito{
+  font-size: 1.5rem;
+}
+.separacionCarrito{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Menu de Moderador */
+.opciones_mode {
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 0.1rem solid rgb(184, 184, 184);
+  padding-bottom: 1rem;
+}
+
+.opcion_mode {
   color: black;
   font-size: 14px;
 }
+.busqueda {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  margin-right: 6rem;
+}
+
+.mostrarCantidad {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.numeroCantidad {
+  font-size: 1.5rem;
+  background-color: #845e02;
+  color: white;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+}
 
 /* Gestion de Menu */
-
-.opciones_menu{
+.opciones_menu {
   display: grid;
-  grid-template-rows: repeat(3,1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  align-items: center;
+  justify-items: center;
+}
+
+.contenedorGestionProducto {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  border-bottom: 1px solid rgb(235 235 235);
+  padding: 1rem 0;
+}
+
+/* Vista Menu */
+.tituloCategoria {
+  font-weight: 700;
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.contenedorProducto {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  border-bottom: 1px solid rgb(235 235 235);
+  padding: 1rem 0;
+}
+
+.productoTextos {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  margin-top: 1rem;
+  margin-left: 11.5rem;
+}
+.imgProducto {
+  width: 25rem;
+  height: 15rem;
+  border: solid rgb(109, 107, 107) 0.1rem;
+  border-radius: 0.5rem;
+}
+.categoriaProducto {
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+}
+.gestionProductoTextos {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.tituloProducto {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.descripcionProducto {
+  font-size: 1.7rem;
+}
+
+.precioProducto {
+  font-size: 2.3rem;
+}
+.opcionesProducto {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+}
+.categorias {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+  border-bottom: 0.1rem solid rgb(184, 184, 184);
+  padding-bottom: 0.5rem;
+  font-size: 1.4rem;
+}
+.btnOpcion {
+  background-color: #845e02;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 0rem;
+  border-radius: 0.4rem;
+  padding: 1rem 2rem;
+  text-align: center;
+}
+
+/* Gestion Administrador */
+
+.etiquetasAdmin {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid rgb(184, 184, 184);
+}
+.datosAdmin {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.separacion {
+  border-bottom: 1px solid black;
+}
+
+/* Gestion Mesas */
+
+.etiquetasMesa {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
+  border-bottom: 1px solid rgb(184, 184, 184);
+}
+
+.datosReserva {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
 }

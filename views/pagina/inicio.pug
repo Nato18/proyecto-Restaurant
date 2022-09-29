@@ -1,0 +1,31 @@
+extends ../layout/index
+
+block contenido
+    div.contenedor
+        div.imagenInicio
+            img.imagenInicio(src="../img/inicio.png", alt="")
+            p.letraInicio RESTAURANTE
+
+        div.seccionInicioBlanco
+            img.imgSeccionInicio(src="../img/quienes-somos.jpg", alt="")
+            div
+                p.tituloInicioBlanco Quienes Somos 
+                p.descripcionInicioBlanco.contenedor-des Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam netus cursus massa ornare mauris volutpat.
+                a(href="/quienes-somos")
+                    img.flechaBlanco(src="../img/flecha.png", alt="")
+
+        div.seccionInicioCafe
+            div
+                p.tituloInicioCafe Conoce Nuestra Carta 
+                p.descripcionInicioCafe.contenedor-des Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam netus cursus massa ornare mauris volutpat.
+                a(href="/ver-menu/1") 
+                    img.flechaCafe(src="../img/flecha.png", alt="")
+            img.imgSeccionInicio(src="../img/carta.jpg", alt="")
+
+        div.seccionInicioBlanco
+            img.imgSeccionInicio(src="../img/donde-encontramos.jpg", alt="") 
+            div
+                p.tituloInicioBlanco Donde Nos Encontramos
+                p.descripcionInicioBlanco.contenedor-des Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam netus cursus massa ornare mauris volutpat.
+                a(href="/ubicacion-contacto") 
+                    img.flechaBlanco(src="../img/flecha.png", alt="")

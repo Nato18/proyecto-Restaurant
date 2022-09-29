@@ -1,25 +1,32 @@
 extends ../layout/index
 
 block contenido
-    div 
-        h2.titulo= pagina
-    div
+    div.login.contenedor
 
-    if errores
+        div.posFormLogin 
+            h2.tituloLogins= pagina
+
+            if errores
+                div
+                    each error in errores
+                        p.error= error.msg
+            
+            form(method="POST" action="/auth/login")
+                input(type="hidden" name="_csrf" value= csrfToken  )
+                div.divLogins
+                    label.labelLogins(for="email") Correo Electronico
+                    input.inputLogins#email(placeholder="Correo_electronico@gmail.com", type="text", name="email")
+                div.divLogins
+                    label.labelLogins(for="contrasena") Contraseña
+                    input.inputLogins#contrasena(placeholder="Contraseña", type="password", name="contrasena")                            
+                
+                input.btnLogins(type="submit", value="Iniciar Sesion")
+                
+            div.div_aLogin
+                a.aLogins.posLogin(href="/auth/registro") ¿No tienes cuenta? 
+                    span.spanLogins Crea una
+                a.aLogins.posLogin(href="/auth/olvide-password") Olvide mi Contraseña
+
+
         div
-            each error in errores
-                p.error= error.msg
-
-    form(method="POST" action="/auth/login")
-        input(type="hidden" name="_csrf" value= csrfToken  )
-        div 
-            label(for="email") Correo Electronico
-            input#email(placeholder="Correo Electronico", type="text", name="email")
-        div 
-            label(for="contrasena") Contraseña
-            input#contrasena(placeholder="Contraseña", type="password", name="contrasena")                            
-        div 
-        a(href="/auth/registro") ¿No tienes cuenta? Crea una
-        a(href="/auth/olvide-password") Olvide mi Contraseña
-
-        input(type="submit", value="Iniciar Sesion")
+            img.imgLogin(src="../img/login.jpg", alt="")

@@ -1,12 +1,13 @@
 import categorias from "./categorias.js";
 import usuarios from "./usuarios.js";
+import horas from "./horas.js";
+import reservas from "./reservas.js";
 // import categoria from "../models/categoria.js";
-import { categoria, usuario } from "../models/index.js";
+import { categoria, usuario, reserva, hora } from "../models/index.js";
 import db from "../config/db.js";
 
 const importarDatos = async () => {
   try {
-    console.log("aloo");
     // Autenticar
     await db.authenticate();
 
@@ -17,6 +18,8 @@ const importarDatos = async () => {
     await Promise.all([
       categoria.bulkCreate(categorias),
       usuario.bulkCreate(usuarios),
+      hora.bulkCreate(horas),
+      reserva.bulkCreate(reservas),
     ]);
     console.log("Datos Importados");
     process.exit(0);

@@ -8,6 +8,10 @@ const Usuario = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    telefono:{
+      type: DataTypes.INTEGER,
+      allowNull:false
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -15,6 +19,9 @@ const Usuario = db.define(
     contrasena: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    admin:{
+      type:DataTypes.BOOLEAN,
     },
     token: DataTypes.STRING,
     confirmado: DataTypes.BOOLEAN,

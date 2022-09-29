@@ -2,6 +2,7 @@ import express from "express";
 import {
   formulariologin,
   autenticar,
+  cerrarSesion,
   formularioregistro,
   registrar,
   formularioOlvidePassword,
@@ -11,11 +12,14 @@ import {
   nuevoPassword,
 } from "../controllers/usuarioControllers.js";
 
+
 const router = express.Router();
 
 // Routing
 router.get("/login", formulariologin);
 router.post("/login", autenticar);
+
+router.post("/cerrar-sesion",cerrarSesion)
 
 router.get("/registro", formularioregistro);
 router.post("/registro", registrar);
@@ -28,4 +32,5 @@ router.post("/olvide-password", resetPassword);
 // Guardar nueva contraseña
 router.get("/olvide-password/:token", comprobarToken);
 router.post("/olvide-password/:token", nuevoPassword);
+
 export default router;

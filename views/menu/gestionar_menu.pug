@@ -1,0 +1,49 @@
+extends ../layout/opciones_usuario
+
+block opciones_moderador
+    h2.tituloCategoria= pagina
+    div.opciones_menu
+        a.btnOpcion(href="/menu/menu_crear" class="link") Agregar Producto
+        form(action="/menu/buscador" method="POST" )
+            input(type="hidden" name="_csrf" value= csrfToken)
+            div.busqueda
+                label.labelLogins(for="termino") Busqueda:
+                input.inputLogins(type="text" id="termino" name="termino" placeholder="Buscar Producto")
+                input.btnOpcion(type="submit" value="Buscar")
+      
+    if productos.length
+        div
+            ul
+                each producto in productos
+                    il
+                        div.contenedorGestionProducto
+                            p.categoriaProducto= producto.categoria.nombre
+                            div.gestionProductoTextos
+                                p.tituloProducto= producto.titulo
+                                p.descripcionProducto= producto.descripcion
+                                p.precioProducto $ #{producto.precio} 
+                            div
+                                img.imgProducto(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt=`Imagen producto ${producto.titulo}`)
+                                    
+                            div.opcionesProducto
+                                a.btnOpcion(href=`/menu/editar/${producto.id }`) Editar
+                                form(method="POST" action=`/menu/eliminar/${producto.id}`)
+                                    input(type="hidden" name="_csrf" value= csrfToken)
+                                    input.btnOpcion(type="submit" value="Eliminar")                        
+
+        div 
+            div 
+                p.mostrarCantidad Mostrando 
+                    span #{offset + 1}  a 
+                    span #{total < limit + offset ? total : limit + offset} de   
+                    span #{total} resultados
+
+            div
+                div
+                    nav
+                        - var n = 1;
+                            while n <= paginas
+                                a.numeroCantidad(href=`/menu/gestionar_menu?pagina=${n}`) #{n++}
+    else
+        p No hay Productos
+

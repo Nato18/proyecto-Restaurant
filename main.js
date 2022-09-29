@@ -3,11 +3,18 @@ import express from "express";
 import csrf from "csurf";
 import cookieParser from "cookie-parser";
 import usuarioRoutes from "./routes/usuarioRoutes.js";
-import ModeradorRoutes from "./routes/ModeradorRoutes.js";
+import opcionesRoutes from "./routes/opcionesRoutes.js";
+import reservaRoutes from "./routes/reservaRoutes.js";
+import MenuRoutes from "./routes/MenuRoutes.js";
+import navegacionRoutes from "./routes/navegacionRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import mesaRoutes from "./routes/mesaRoutes.js";
 import db from "./config/db.js";
 import { cookie } from "express-validator";
+
 // Crear la app
 const app = express();
+
 
 // Habilitar lectura de datos
 app.use(express.urlencoded({ extended: true }));
@@ -25,7 +32,7 @@ try {
 app.use(cookieParser());
 
 // Cross site
-app.use(csrf( {cookie: true} ));
+app.use(csrf({ cookie: true }));
 
 // Habilitar Pug
 app.set("view engine", "pug");
@@ -35,8 +42,13 @@ app.set("views", "./views");
 app.use(express.static("public"));
 
 // Routing
+app.use("/", navegacionRoutes);
 app.use("/auth", usuarioRoutes);
-app.use("/moderador", ModeradorRoutes);
+app.use("/opciones", opcionesRoutes);
+app.use("/reserva", reservaRoutes);
+app.use("/menu", MenuRoutes);
+app.use("/admin", adminRoutes);
+app.use("/mesa", mesaRoutes);
 
 //Definir un puerto y arrancar el proyecto
 const port = process.env.PORT || 3000;

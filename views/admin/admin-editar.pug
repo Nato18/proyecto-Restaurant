@@ -1,0 +1,22 @@
+extends ../layout/opciones_usuario
+
+block opciones_moderador
+    p= pagina
+
+    if errores
+        div
+            each error in errores
+                p.error= error.msg
+    form(method="POST") 
+        input(type="hidden", name="_csrf" value= csrfToken)
+        div 
+            label(for="nombre") Nombre Completo
+            input(type="text" placeholder="Nombre Completo del Administrador" name="nombre" value= admin ? admin.nombre : '') 
+        div 
+            label(for="telefono") Telefono 
+            input(type="number" placeholder="Telefono del Administrador" name="telefono" value= admin ? admin.telefono : '')
+        div 
+            label(for="email") Correo Electronico
+            input(type="email", placeholder="Correo Electronico del Administrador" name="email" value= admin ? admin.email : '' ) 
+        
+        input(type="submit" value="Guardar Cambios")

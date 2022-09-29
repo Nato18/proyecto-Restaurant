@@ -23,11 +23,6 @@ const producto = db.define("productos", {
   imagen: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
-  aprobado:{
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: false
   }
 });
 

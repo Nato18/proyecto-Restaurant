@@ -14,7 +14,6 @@ const formulariologin = (req, res) => {
 };
 
 const autenticar = async (req, res) => {
-  console.log("autenticando...");
   // Validacion
   await check("email")
     .isEmail()
@@ -67,19 +66,24 @@ const autenticar = async (req, res) => {
   }
 
   // Verificar Usuario
-  const token = generarJWT({id : usuario.id, nombre : usuario.nombre});
-  // Guardar en un Cookie
-  return res.cookie('_token',token, {
-    httpOnly: true,
-    // secure: true,
-    // sameSite: true
+  const token = generarJWT({ id: usuario.id, nombre: usuario.nombre });
 
-  }).redirect('../moderador/opcion_moderador')
+  // Guardar en un Cookie
+  return res
+    .cookie("_token", token, {
+      httpOnly: true,
+    })
+    .redirect("/");
 };
+
+const cerrarSesion = (req, res) =>{
+  return res.clearCookie("_token").status(200).redirect("/auth/login");
+  
+}
 
 const formularioregistro = (req, res) => {
   res.render("auth/registro", {
-    pagina: "Crear Cuenta",
+    pagina: "Registrarse",
     csrfToken: req.csrfToken(),
   });
 };
@@ -94,6 +98,10 @@ const registrar = async (req, res) => {
     .isEmail()
     .withMessage("El Correo Electronico no es valido")
     .run(req);
+  await check("telefono")
+    .isNumeric()
+    .isLength({ min: 8, max: 8 })
+    .withMessage("El Telefono no es Valido");
   await check("contrasena")
     .isLength({ min: 5 })
     .withMessage("La contraseña debe contener al menos 5 caracteres")
@@ -120,7 +128,7 @@ const registrar = async (req, res) => {
   }
 
   // Datos
-  const { nombre, email, contrasena } = req.body;
+  const { nombre, email, contrasena, telefono } = req.body;
   // Verificar Usuario Duplicado
   const existeUsuario = await Usuario.findOne({ where: { email } });
   if (existeUsuario) {
@@ -139,6 +147,7 @@ const registrar = async (req, res) => {
     nombre,
     email,
     contrasena,
+    telefono,
     token: generarId(),
   });
 
@@ -277,7 +286,6 @@ const nuevoPassword = async (req, res) => {
   const { contrasena } = req.body;
 
   // Identificar
-
   const usuario = await Usuario.findOne({ where: { token } });
 
   // Hashear
@@ -293,9 +301,12 @@ const nuevoPassword = async (req, res) => {
   });
 };
 
+//Navegacion Opciones
+
 export {
   formulariologin,
   autenticar,
+  cerrarSesion,
   formularioregistro,
   registrar,
   formularioOlvidePassword,
