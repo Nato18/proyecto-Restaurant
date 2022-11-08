@@ -1,0 +1,27 @@
+extends ../layout/opciones_usuario
+
+block opciones_moderador
+
+    h2.tituloCategoria= pagina
+    if errores
+        div.erroresConfiguracion
+            each error in errores 
+                p.error= error.msg
+
+
+    div 
+        form(method="POST") 
+            input(type="hidden", name="_csrf" value= csrfToken)
+
+            div.divLogins 
+                label.labelLogins(for="nombre") Nombre:
+                input.inputLogins(type="text" placeholder="Alfonso Molina" name="nombre", value= usuario.nombre ? usuario.nombre : "") 
+            div.divLogins 
+                label.labelLogins(for="email") Correo Electronico 
+                input.inputLogins(type="text" placeholder="correo@dominio.com" name="email", value= usuario.email ? usuario.email : "") 
+            div.divLogins 
+                label.labelLogins(for="telefono") Telefono
+                input.inputLogins(type="number", placeholder="12345678",name="telefono" value = usuario.telefono ? usuario.telefono : "") 
+            input.btnLogins(type="submit", value="Guardar Cambios") 
+        div.div_aLogin
+            a.labelLogins(href="/configurar/cambiar-password") Cambiar Contraseña 

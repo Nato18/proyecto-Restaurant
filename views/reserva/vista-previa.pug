@@ -1,0 +1,52 @@
+extends ../layout/opciones_usuario
+
+block opciones_moderador
+    h2.tituloPaginas= pagina
+    div.datosReservacion
+        div 
+            p.datoReserva Fecha:  
+                span.spanDatoReserva=`${datos.fecha}`
+        div
+            p.datoReserva Hora: 
+                span.spanDatoReserva=`${datos.hora.hora}`
+        div 
+            p.datoReserva Personas: 
+                span.spanDatoReserva= `${datos.personas}`
+        div
+            p.datoReserva Comida Reservada: 
+                span.spanDatoReserva= `${datos.comida}`
+    if pedidoComida
+        div.tituloCategoria
+            p Comida Reservada
+        if productos.length
+            div.datosReservacion
+                p.datoReserva.tamLetra Total:
+                    span.spanDatoReserva= `$${datos.monto}`
+            div.contenedorMesa
+                each producto in productos
+                    - var total = 0
+                    div.contenedorGestionProducto
+                        p.categoriaProducto= producto.categoria.nombre
+                        div.gestionProductoTextos
+                            p.tituloProducto= producto.titulo
+                            p.descripcionProducto= producto.descripcion
+                            p.precioProducto $ #{producto.precio} 
+
+                        div
+                            img.imgProducto(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt=`Imagen producto ${producto.titulo}`)
+                        div     
+                            each comida in comidas
+                                if comida == producto.titulo
+                                    - total ++;
+                            p.cantidad x #{total}
+                        
+        
+
+        else
+            p No hay Producto
+    else
+        div.tituloCategoria
+            p No Reservo Comida
+    div.btnsJuntos
+        a.btnOpcion(href=`/reserva/reserva-aceptada/${datos.id}`) Aceptar Reserva
+        a.btnOpcion(href=`/reserva/reserva-cancelada/${datos.id}`) Cancelar Reserva

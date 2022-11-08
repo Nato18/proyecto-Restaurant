@@ -13,9 +13,9 @@ block opciones_moderador
       
     if productos.length
         div
-            ul
+
                 each producto in productos
-                    il
+                    
                         div.contenedorGestionProducto
                             p.categoriaProducto= producto.categoria.nombre
                             div.gestionProductoTextos
@@ -30,8 +30,11 @@ block opciones_moderador
                                 form(method="POST" action=`/menu/eliminar/${producto.id}`)
                                     input(type="hidden" name="_csrf" value= csrfToken)
                                     input.btnOpcion(type="submit" value="Eliminar")                        
-
-        div 
+                            div.opcionesProducto
+                                form(method="POST" action=`/menu/cambiarStock/${producto.id}`)
+                                    input(type="hidden", name="_csrf" value= csrfToken)
+                                    input.btnOpcion(type="submit", value= producto.stock ? "Deshabilitar" : "Habilitar")
+        div.paginacion 
             div 
                 p.mostrarCantidad Mostrando 
                     span #{offset + 1}  a 

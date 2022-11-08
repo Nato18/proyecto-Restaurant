@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
 html {
@@ -15,13 +15,17 @@ p {
 }
 .contenedor {
   max-width: 132rem;
-
   margin: 0 auto;
 }
 .contenedorGeneral {
   max-width: 110rem;
   min-height: 70rem;
   margin: 0 auto;
+}
+@media (max-width: 758px) {
+  .contenedorCelu {
+    margin: auto 1rem;
+  }
 }
 body {
   font-family: "Inter", sans-serif;
@@ -32,8 +36,16 @@ a {
   text-decoration: none;
   color: black;
 }
+img {
+  width: 100%;
+}
 .link {
   text-decoration: none;
+}
+@media (max-width: 758px) {
+  .letraBlanca {
+    color: white;
+  }
 }
 .titulo {
   text-align: center;
@@ -45,8 +57,90 @@ a {
   margin-top: 1.5rem;
   margin-bottom: 2.8rem;
 }
+.errores {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding-right: 11rem;
+}
+@media (max-width: 758px) {
+  .errores {
+    padding-right: 0rem;
+  }
+}
+.erroresGestion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding-right: 64rem;
+  padding-left: 8rem;
+}
+@media (max-width: 758px) {
+  .erroresGestion {
+    padding-left: 0rem;
+    padding-right: 5rem;
+  }
+}
+.erroresEditarMesa {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding-right: 30rem;
+  padding-left: 30rem;
+}
+@media (max-width: 758px) {
+  .erroresEditarMesa {
+    padding-right: 0rem;
+    padding-left: 0rem;
+  }
+}
+
+.erroresConfiguracion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding-right: 70rem;
+}
+@media (max-width: 758px) {
+  .erroresConfiguracion {
+    padding-right: 0rem;
+  }
+}
+.erroresCambiarPass {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding-right: 61rem;
+}
+@media (max-width: 758px) {
+  .erroresCambiarPass {
+    padding-right: 0rem;
+  }
+}
 .error {
-  color: red;
+  display: grid;
+  background-color: red;
+  /* border-radius: 1.5rem; */
+  padding: 1rem 1rem;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
 }
 
 /* Vista de Pagina */
@@ -60,7 +154,6 @@ a {
   margin-top: 6rem;
   font-weight: 500;
   font-size: 2rem;
-  /* line-height: 3rem; */
 }
 
 /* Inicio de Pagina */
@@ -96,6 +189,22 @@ a {
   font-weight: 500;
   padding: 1rem 2rem;
   border-radius: 0.6rem;
+}
+
+@media screen and (max-width: 758px) {
+  .header {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
+    /* max-width: 25rem; */
+    margin: 0 auto;
+    /* position: relative;
+    left: 12.5rem; */
+  }
+  .opciones {
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* Footer */
@@ -163,19 +272,31 @@ a {
   left: 55rem;
 }
 
+@media (max-width: 758px) {
+  .flechaCafe {
+    position: relative;
+    left: 0;
+  }
+}
+
 /* Clases de secciones de inicio */
 .imagenInicio {
-  width: 130.4rem;
+  background-image: url(../img/inicio.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  filter: brightness(90%);
   height: 33rem;
   font-size: 5rem;
 }
+
 .letraInicio {
   color: white;
   font-weight: 700;
   position: relative;
-  left: 50rem;
-  bottom: 9rem;
-  width: 20rem;
+  top: 25rem;
+  /* right: 25rem; */
+  text-align: center;
 }
 .seccionInicioBlanco {
   margin-top: 1rem;
@@ -187,6 +308,7 @@ a {
 .imgSeccionInicio {
   width: 56.8rem;
   height: 29.7rem;
+  filter: brightness(85%);
 }
 .seccionInicioCafe {
   margin-top: 1rem;
@@ -197,6 +319,32 @@ a {
   gap: 2rem;
 }
 
+@media (max-width: 758px) {
+  .imagenInicio {
+    height: 28rem;
+  }
+  .letraInicio {
+    font-size: 3rem;
+    top: 23rem;
+  }
+  .seccionInicioBlanco {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 1fr;
+    gap: 0;
+  }
+  .seccionInicioCafe {
+    display: flex;
+    flex-direction: column-reverse;
+    /* grid-template-columns: 1fr; */
+    /* grid-template-rows: 1fr 0.5fr; */
+  }
+  .textosInicio {
+    padding-left: 1rem;
+  }
+  .imgSeccionInicio {
+    width: 100%;
+  }
+}
 /* Quienes Somos */
 .quienesSomos {
   margin-top: 5rem;
@@ -213,7 +361,19 @@ a {
 .espacio {
   margin-bottom: 2.5rem;
 }
-
+@media (max-width: 758px) {
+  .quienesSomos {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .descripcionPaginas {
+    padding: 0 2rem;
+    margin-top: 2.5rem;
+  }
+  .imgquienesSomos {
+    width: 100%;
+  }
+}
 /* Ubicacion y Contacto */
 .ubicacion {
   margin-top: 5rem;
@@ -230,24 +390,96 @@ a {
   margin-top: 4rem;
 }
 
+@media (max-width: 758px) {
+  .ubicacion {
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 1fr;
+    margin-top: 0;
+    gap: 2rem;
+  }
+  .imgUbicacion {
+    width: 100%;
+  }
+  .descripcionContacto {
+    padding: 0 2rem;
+  }
+}
 /* Registro */
 .registro {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
+@media (max-width: 758px) {
+  .registro {
+    grid-template-columns: 0fr 2fr;
+    margin-bottom: 11.5rem;
+  }
+}
 .login {
   display: grid;
   grid-template-columns: 2fr 1fr;
 }
+@media (max-width: 758px) {
+  .login {
+    grid-template-columns: 1fr 0fr;
+    margin-bottom: 2.5rem;
+  }
+}
+
 .imgRegistro {
   width: 60rem;
-  height: 55rem;
+  min-height: 55rem;
+  height: 72rem;
   object-fit: cover;
+}
+@media (max-width: 758px) {
+  .imgRegistro {
+    height: 0rem;
+    min-height: 99rem;
+    width: 100%;
+    position: absolute;
+    right: inherit;
+    z-index: -1;
+    filter: brightness(70%);
+  }
 }
 .imgLogin {
   width: 60rem;
-  height: 55rem;
+  min-height: 55rem;
+  height: 100%;
   object-fit: cover;
+}
+@media (max-width: 758px) {
+  .imgLogin {
+    height: 0rem;
+    min-height: 52rem;
+    width: 100%;
+    position: absolute;
+    right: 0rem;
+    z-index: -1;
+    filter: brightness(70%);
+  }
+  .marginImgLoginCelu {
+    margin-bottom: 50rem;
+  }
+}
+.imgCarta {
+  width: 60rem;
+  min-height: 55rem;
+  height: 100%;
+  object-fit: fill;
+  filter: brightness(87%);
+}
+@media (max-width: 758px) {
+  .imgCarta {
+    height: 0rem;
+    min-height: 66rem;
+    width: 100%;
+    position: absolute;
+    right: 0rem;
+    z-index: -1;
+    filter: brightness(70%);
+  }
 }
 .tituloLogins {
   margin-top: 1.5rem;
@@ -255,6 +487,7 @@ a {
   font-size: 40px;
   margin-bottom: 1.5rem;
 }
+
 .divLogins {
   display: grid;
   grid-template-rows: 1fr 2fr;
@@ -279,6 +512,18 @@ a {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
+@media (max-width: 758px) {
+  .divContrasenas {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+.separacionContrasenas {
+  margin-top: 3rem;
+}
+.separacionBoton {
+  margin-top: 2rem;
+}
 .btnLogins {
   font-family: "Poppins", sans-serif;
   font-weight: 600;
@@ -297,14 +542,31 @@ a {
   margin-top: 2.5rem;
   margin-left: 15rem;
 }
+@media (max-width: 758px) {
+  .div_aRegistro {
+    margin-left: 0rem;
+    margin-bottom: 5rem;
+  }
+}
 .div_aLogin {
   margin-top: 2.5rem;
   margin-left: 6rem;
+}
+@media (max-width: 758px) {
+  .div_aLogin {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    padding-bottom: 2rem;
+  }
 }
 .aLogins {
   font-family: "Poppins", sans-serif;
   font-size: 1.5rem;
 }
+
 .spanLogins {
   color: #00a3ff;
 }
@@ -312,8 +574,37 @@ a {
   margin-right: 2rem;
 }
 .posFormLogin {
-  margin-left: 14rem;
   margin-top: 6rem;
+  margin-left: 14rem;
+}
+@media (max-width: 758px) {
+  .posFormLogin {
+    /* margin-top: 2rem; */
+    /* margin-left: 5rem; */
+    margin: 0 auto;
+    margin-bottom: 1.5rem;
+  }
+  .posFormRegistro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3.5rem;
+  }
+  .marginImgRegistroCelu {
+    margin-bottom: 88rem;
+  }
+}
+
+.posFormReserva {
+  margin-left: 14rem;
+}
+@media (max-width: 758px) {
+  .posFormReserva {
+    margin-left: 0rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 /* Reserva */
@@ -341,54 +632,118 @@ a {
   width: 5rem;
   height: 2rem;
 }
+
+@media (max-width: 758px) {
+  .imgReserva {
+    min-height: 53rem;
+  }
+  .padding {
+    margin-bottom: 1.5rem;
+  }
+}
 /*** Reserva Comida  ***/
 
+.tituloCategoriaReserva {
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 5rem;
+  padding-bottom: 1rem;
+  margin-top: 2rem;
+  padding-left: 11.5rem;
+  border-bottom: 1px solid;
+}
+.tituloCategoriaReserva:hover {
+  color: #845e02;
+  cursor: pointer;
+}
 .contenedorReservaProducto {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   border-bottom: 0.1rem solid rgb(235 235 235);
-  padding: 1rem 0;
+  /* max-height: 0;
+  overflow: hidden; */
+
+  /* transition: max-height 1s ease; */
 }
 .contenedorReservaProducto div:nth-child(3) {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .carrito {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  /* grid-template-columns: 2fr 1fr; */
   margin-top: 2rem;
   margin-bottom: 3rem;
-  justify-items: center;
 }
-
+.productosAgregados{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 75rem;
+  justify-items: start;
+  margin: 1rem 0;
+}
 .cantidadNombreCarrito {
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 1fr 1fr;
   width: 75rem;
 }
-.tituloCarrito{
+.tituloCarrito {
   font-size: 2rem;
 }
-.cantidadCarrito{
-  font-size: 1.5rem;
-  margin-left: 2.5rem;
-}
-.nombreCarrito{
+.cantidadCarrito {
   font-size: 1.5rem;
 }
-.separacionCarrito{
+.nombreCarrito {
+  font-size: 1.5rem;
+}
+.separacionCarrito {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
+.tamLetra {
+  font-size: 2.3rem;
+}
+.cantidad {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding-top: 6rem;
+}
+.texto300 {
+  font-weight: 300;
+}
+.centrarTexto {
+  text-align: center;
+}
+@media (max-width: 758px) {
+  .centrarTextoCelu {
+    text-align: center;
+  }
+}
+/* Acordeon */
 
+.acordeon.active .allProductos {
+  max-height: 500rem;
+}
+
+.acordeonActive :nth-child(2) {
+  max-height: 500rem;
+}
 /* Menu de Moderador */
 .opciones_mode {
   display: flex;
   justify-content: space-evenly;
   border-bottom: 0.1rem solid rgb(184, 184, 184);
   padding-bottom: 1rem;
+}
+@media (max-width: 758px) {
+  .opciones_mode {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
 }
 
 .opcion_mode {
@@ -401,6 +756,13 @@ a {
   gap: 1rem;
   align-items: center;
   margin-right: 6rem;
+}
+@media (max-width: 758px) {
+  .busqueda {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 0rem;
+  }
 }
 
 .mostrarCantidad {
@@ -425,14 +787,42 @@ a {
   align-items: center;
   justify-items: center;
 }
-
+@media (max-width: 758px) {
+  .opciones_menu {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2fr;
+    justify-items: center;
+    margin-left: 2rem;
+  }
+}
 .contenedorGestionProducto {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
   border-bottom: 1px solid rgb(235 235 235);
   padding: 1rem 0;
 }
-
+@media (max-width: 758px) {
+  .contenedorGestionProducto {
+    grid-template-columns: 1fr 1fr;
+    /* grid-template-rows: 0fr 1fr 1fr 0fr 0fr; */
+    /* justify-items: center; */
+    /* gap: 1rem; */
+  }
+  .contenedorGestionProducto .categoriaProducto {
+    grid-column: 3/1;
+    text-align: center;
+  }
+  .contenedorGestionProducto div:nth-child(4) {
+    grid-column: 3/1;
+  }
+  .contenedorGestionProducto div:nth-child(5) {
+    grid-column: 3/1;
+  }
+  .vistaImagen {
+    display: flex;
+    align-items: center;
+  }
+}
 /* Vista Menu */
 .tituloCategoria {
   font-weight: 700;
@@ -440,12 +830,13 @@ a {
   text-align: center;
   margin-bottom: 5rem;
 }
-
 .contenedorProducto {
   display: grid;
   grid-template-columns: 2fr 1fr;
   border-bottom: 1px solid rgb(235 235 235);
   padding: 1rem 0;
+  gap: 2rem;
+  align-items: center;
 }
 
 .productoTextos {
@@ -453,6 +844,19 @@ a {
   grid-template-rows: repeat(3, 1fr);
   margin-top: 1rem;
   margin-left: 11.5rem;
+}
+
+@media (max-width: 758px) {
+  .productoTextos {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-left: 2rem;
+  }
+  .contenedorProducto {
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem 1rem;
+  }
 }
 .imgProducto {
   width: 25rem;
@@ -471,16 +875,13 @@ a {
   gap: 1rem;
   margin-top: 1rem;
 }
-
 .tituloProducto {
   font-weight: 700;
   font-size: 2rem;
 }
-
 .descripcionProducto {
   font-size: 1.7rem;
 }
-
 .precioProducto {
   font-size: 2.3rem;
 }
@@ -491,6 +892,12 @@ a {
   justify-content: center;
   gap: 3rem;
 }
+@media (max-width: 758px) {
+  .opcionesProducto {
+    flex-direction: row;
+    margin-top: 1rem;
+  }
+}
 .categorias {
   display: flex;
   justify-content: space-evenly;
@@ -500,6 +907,22 @@ a {
   border-bottom: 0.1rem solid rgb(184, 184, 184);
   padding-bottom: 0.5rem;
   font-size: 1.4rem;
+}
+
+@media (max-width: 758px) {
+  .categorias {
+    display: flex;
+    flex-wrap: wrap;
+    /* display: grid;
+    grid-template-columns: repeat(3,1fr); */
+    padding: 0 1rem 1.5rem;
+  }
+  .imgProducto {
+    width: 100%;
+  }
+  /* .categorias a:nth-child(4){
+    grid-column: 1/3;
+  } */
 }
 .btnOpcion {
   background-color: #845e02;
@@ -518,24 +941,276 @@ a {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border-bottom: 1px solid rgb(184, 184, 184);
+  font-size: 1.2rem;
+  padding-bottom: 1rem;
+}
+.admin {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+@media (max-width: 758px) {
+  .etiquetasAdmin {
+    grid-template-columns: repeat(2, 1fr);
+    /* margin-left: 1rem; */
+  }
+  .admin {
+    grid-template-columns: 1fr 0fr;
+    margin-bottom: 6.5rem;
+  }
+}
+.datosAdmins {
+  display: grid;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 .datosAdmin {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgb(184, 184, 184);
+  align-items: center;
+}
+@media (max-width: 758px) {
+  .datosAdmin {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1.5rem;
+  }
+  .datosAdmin div {
+    grid-column: 3/1;
+  }
 }
 .separacion {
   border-bottom: 1px solid black;
 }
+.btnsJuntos2 {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
 
 /* Gestion Mesas */
 
+@media (max-width: 758px) {
+  .ocultarCelu {
+    display: none !important;
+  }
+}
+.buscadoresMesa {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+}
+.buscarCodigo {
+  font-family: "Poppins", sans-serif;
+  background-color: #dde1cd;
+  border: 0px;
+  border-radius: 0.4rem;
+  width: 20rem;
+  height: 5rem;
+  padding-left: 1.5rem;
+}
+@media (max-width: 758px) {
+  .buscadoresMesa {
+    grid-template-columns: 1fr;
+  }
+}
 .etiquetasMesa {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   border-bottom: 1px solid rgb(184, 184, 184);
+  font-size: 1.2rem;
+  padding-bottom: 1rem;
 }
-
+@media (max-width: 758px) {
+  .etiquetasMesa {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+}
+.datosReservas {
+  display: grid;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
 .datosReserva {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgb(184, 184, 184);
+  align-items: center;
+}
+
+@media (max-width: 758px) {
+  .datosReserva {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 1.5rem;
+    gap: 1rem;
+  }
+  .datosReserva a {
+    grid-column: 4/2;
+  }
+}
+/* Gestionar Mesa en especifico */
+.datosReservacion {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  font-size: 1.5rem;
+  row-gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 758px) {
+  .datosReservacion {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+.datosReservacion div:nth-child(5) {
+  grid-column: 5/1;
+}
+.datosReservacion div:nth-child(6) {
+  grid-column: 5/1;
+}
+.datoReserva {
+  font-weight: 700;
+}
+.spanDatoReserva {
+  font-weight: 300;
+}
+.contenedorMesa {
+  min-height: 40rem;
+}
+.btnsJuntos {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.estadosMesaCambios {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+@media (max-width: 758px) {
+  .estadosMesaCambios {
+    flex-direction: column;
+  }
+  .opcionesCelu {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  }
+}
+.btnMesa {
+  margin-bottom: 5rem;
+  padding-left: 10rem;
+}
+@media (max-width: 758px) {
+  .btnMesa {
+    padding-left: 2rem;
+  }
+}
+.formVerMesa {
+  display: flex;
+  gap: 2rem;
+}
+@media (max-width: 758px) {
+  .formVerMesa {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.separacion {
+  margin-left: 20rem;
+}
+
+.verMesaFecha {
+  display: flex;
+  justify-content: center;
+  font-size: 1.7rem;
+  margin-bottom: 3rem;
+}
+/*** Ver mesas ***/
+.gridVerMesas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  justify-items: center;
+}
+@media (max-width: 758px) {
+  .gridVerMesas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.gridHoras {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.mesaP {
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.horaP {
+  font-size: 1.5rem;
+  padding: 1rem;
+  background-color: blue;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
+}
+.paginacion {
+  padding-top: 5rem;
+}
+/* Descripcion Colores */
+.colores {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 758px) {
+  .colores {
+    flex-wrap: wrap;
+  }
+}
+.color {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.letraColor {
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+.divColor {
+  height: 2rem;
+  width: 2rem;
+}
+
+.colorAceptado {
+  background-color: green;
+  color: white;
+}
+.colorNoLlegada {
+  background-color: red;
+  color: white;
+}
+.colorEnMesa {
+  background-color: blue;
+  color: white;
+}
+.colorComidaServida {
+  background-color: #845e02;
+  color: white;
+}
+.colorSalida {
+  background-color: orange;
+  color: white;
 }

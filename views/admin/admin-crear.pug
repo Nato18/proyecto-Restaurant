@@ -1,7 +1,7 @@
 extends ../layout/opciones_usuario
 
 block opciones_moderador
-    p= pagina
+    p.tituloCategoria= pagina
 
     if errores
         div
@@ -9,19 +9,21 @@ block opciones_moderador
                 p.error= error.msg
     form(method="POST" action="/admin/admin-crear") 
         input(type="hidden", name="_csrf" value= csrfToken)
-        div 
-            label(for="nombre") Nombre Completo
-            input(type="text" placeholder="Nombre Completo del Administrador" name="nombre" value= admin ? admin.nombre : '') 
-        div 
-            label(for="telefono") Telefono 
-            input(type="number" placeholder="Telefono del Administrador" name="telefono" value= admin ? admin.telefono : '')
-        div 
-            label(for="email") Correo Electronico
-            input(type="email", placeholder="Correo Electronico del Administrador" name="email" value= admin ? admin.email : '' ) 
-        div 
-            label(for="contrasena") Contraseña
-                input#contrasena(placeholder="Contraseña", type="password", name="contrasena")                            
-        div 
-            label(for="repetir_contrasena") Repite la Contraseña
-            input#repetir_contrasena(placeholder="Repetir Contraseña", type="password", name="repetir_contrasena")
-        input(type="submit" value="Crear Administrador")
+        div.divLogins
+            label.labelLogins(for="nombre") Nombre Completo
+            input.inputLogins(type="text" placeholder="Nombre Completo del Administrador" name="nombre" value= admin ? admin.nombre : '') 
+        div.divLogins
+            label.labelLogins(for="telefono") Telefono 
+            input.inputLogins(type="number" placeholder="Telefono del Administrador" name="telefono" value= admin ? admin.telefono : '')
+        div.divLogins 
+            label.labelLogins(for="email") Correo Electronico
+            input.inputLogins(type="email", placeholder="Correo Electronico del Administrador" name="email" value= admin ? admin.email : '' ) 
+        div.divLogins 
+            label.labelLogins(for="contrasena") Contraseña
+            input.inputLogins#contrasena(placeholder="Contraseña", type="password", name="contrasena")                            
+        div.divLogins 
+            label.labelLogins(for="repetir_contrasena") Repite la Contraseña
+            input.inputLogins#repetir_contrasena(placeholder="Repetir Contraseña", type="password", name="repetir_contrasena")
+        input.btnOpcion.espacio(type="submit" value="Crear Administrador")
+        div
+            a.btnOpcion(href="/admin/admin-gestionar") Volver 

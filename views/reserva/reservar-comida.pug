@@ -2,40 +2,47 @@ extends ../layout/opciones_usuario
 
 block opciones_moderador
     p.tituloPaginas= pagina
+    div.separacionCarrito
+        p.tituloCarrito Total
+        p.cantidadCarrito $0
     div.carrito
         div.cantidadNombreCarrito
-            div.separacionCarrito
-                p.tituloCarrito Carrito
-                p.cantidadCarrito
-            div.separacionCarrito
-                p.tituloCarrito Producto
-                p.nombreCarrito
+            p.tituloCarrito Precio
+            p.tituloCarrito Producto 
+            p.tituloCarrito Borrar Producto
+        div.productosTotalesAgregados
+            
+    form(id="pedidos" method="POST" action=`/reserva/reservar-comida/${Reserva.id}`) 
+        input(type="hidden", name="_csrf" value= csrfToken)
+        input(type="hidden", name="ProductosSelec", id="productos")
+        input(type="hidden", name="totalProductos", id="total")
+        button.btnOpcion(id="continuar" type="submit",) Continuar
+    
+    div
 
-        form(id="pedidos" method="POST" action=`/reserva/reservar-comida/${Reserva.id}`) 
-            input(type="hidden", name="_csrf" value= csrfToken)
-            input(type="hidden", name="stringproductosSelec" value=`${stringProductosSelec}`)
-            button.btnOpcion(id="continuar" type="submit",) Continuar
-    div 
-        div 
-            p.tituloCategoria Entrada
-        div 
+        div.tituloAcordeon
+            p.tituloCategoriaReserva Entrada
+
+        div.allProductos
             if productos.length
                 each producto in productos
-                    if producto.categoriaId == 1
-                        div.contenedorReservaProducto
-                            div.productoTextos
-                                p(class=`tituloProducto ${producto.id}`) #{producto.titulo} 
-                                p.descripcionProducto #{producto.descripcion}
-                                p.precioProducto $#{producto.precio}
-                            div
-                                img.imgProducto(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt="")
-                            div
-                                input(type="button", value="Agregar" class=`agregar ${producto.id} btnOpcion`)                
-            else
+
+                        if producto.categoriaId == 1
+                            div.contenedorReservaProducto
+                                div(class=`productoTextos a${producto.id}`)
+                                    p(class=`tituloProducto`) #{producto.titulo} 
+                                    p.descripcionProducto #{producto.descripcion}
+                                    p.precioProducto $#{producto.precio}
+                                div
+                                    img.imgProducto(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt="")
+                                div
+                                    input(type="button", value="Agregar" class=`agregar a${producto.id} btnOpcion`)    
+            else             
                 p No hay Producto
+
     div
         div 
-            p.tituloCategoria Ensaladas
+            p.tituloCategoriaReserva Ensaladas
         div 
             if productos.length
                 each producto in productos
@@ -49,11 +56,10 @@ block opciones_moderador
                                 img(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt="")
                             div
                                 button Agregar
-            else
-                p No hay Producto
+
     div
         div.boton
-            p.tituloCategoria Platos Fuertes
+            p.tituloCategoriaReserva Platos Fuertes
         div 
             if productos.length
                 each producto in productos
@@ -67,11 +73,10 @@ block opciones_moderador
                                     img(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt="")
                                 div
                                     button Agregar
-            else
-                p No hay Producto
+
     div
         div 
-            p.tituloCategoria Postres
+            p.tituloCategoriaReserva Postres
         div 
             if productos.length
                 each producto in productos
@@ -85,11 +90,11 @@ block opciones_moderador
                                 img(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt="")
                             div
                                 button Agregar
-            else
-                p No hay Producto
+
     div
         div 
-            p.tituloCategoria Bebidas
+            p.tituloCategoriaReserva Bebidas
+            
         div 
             if productos.length
                 each producto in productos
@@ -103,8 +108,6 @@ block opciones_moderador
                                 img(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt="")
                             div
                                 button(onclick="agregarProducto()") Agregar
-            else
-                p No hay Producto
 
 
 block scripts

@@ -7,7 +7,7 @@ import { generarId, generarJWT } from "../helpers/tokens.js";
 import { emailRegistro, emailOlvidePassword } from "../helpers/emails.js";
 
 const formulariologin = (req, res) => {
-  res.render("auth/login", {
+  res.clearCookie("_token").status(200).render("auth/login", {
     pagina: "Iniciar Sesion",
     csrfToken: req.csrfToken(),
   });
@@ -24,7 +24,7 @@ const autenticar = async (req, res) => {
     .withMessage("La contraseña es obligatorio")
     .run(req);
   let resultado = validationResult(req);
-
+  // res.clearCookie("_token").status(200);
   // Verificar que el resultado este vacio
   if (!resultado.isEmpty()) {
     //Errores
@@ -76,14 +76,10 @@ const autenticar = async (req, res) => {
     .redirect("/");
 };
 
-const cerrarSesion = (req, res) =>{
-  return res.clearCookie("_token").status(200).redirect("/auth/login");
-  
-}
 
 const formularioregistro = (req, res) => {
   res.render("auth/registro", {
-    pagina: "Registrarse",
+    pagina: "Crear Cuenta",
     csrfToken: req.csrfToken(),
   });
 };
@@ -99,9 +95,9 @@ const registrar = async (req, res) => {
     .withMessage("El Correo Electronico no es valido")
     .run(req);
   await check("telefono")
-    .isNumeric()
     .isLength({ min: 8, max: 8 })
-    .withMessage("El Telefono no es Valido");
+    .withMessage("El Telefono no es de 8 numeros")
+    .run(req);
   await check("contrasena")
     .isLength({ min: 5 })
     .withMessage("La contraseña debe contener al menos 5 caracteres")
@@ -123,6 +119,7 @@ const registrar = async (req, res) => {
       usuario: {
         nombre: req.body.nombre,
         email: req.body.email,
+        telefono: req.body.telefono
       },
     });
   }
@@ -162,7 +159,7 @@ const registrar = async (req, res) => {
   res.render("templates/mensaje", {
     pagina: "Cuenta Creada Correctamente",
     mensaje:
-      "Te hemos enviado un email de Confirmacion, haz click en el enlace",
+      "Te hemos enviado un Email de Confirmacion, haz click en el enlace del Email",
   });
 };
 
@@ -270,6 +267,10 @@ const nuevoPassword = async (req, res) => {
     .isLength({ min: 5 })
     .withMessage("La contraseña debe contener al menos 5 caracteres")
     .run(req);
+  await check("contrasenaRepetida")
+    .equals(req.body.contrasena)
+    .withMessage("Las Contraseñas no son iguales")
+    .run(req);
   let resultado = validationResult(req);
 
   //Verificar que el resultado este vacio
@@ -306,7 +307,6 @@ const nuevoPassword = async (req, res) => {
 export {
   formulariologin,
   autenticar,
-  cerrarSesion,
   formularioregistro,
   registrar,
   formularioOlvidePassword,

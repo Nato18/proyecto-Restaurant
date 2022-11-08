@@ -23,7 +23,10 @@ const producto = db.define("productos", {
   imagen: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
+  stock: {
+    type: DataTypes.BOOLEAN,
+  },
 });
 
 export default producto;

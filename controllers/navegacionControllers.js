@@ -4,17 +4,16 @@ const verinicio = (req, res) => {
   const { _token } = req.cookies;
   res.render("pagina/inicio", {
     pagina: "Inicio",
-    _token
+    _token,
   });
 };
-
 
 const quienesSomos = (req, res) => {
   const { _token } = req.cookies;
   res.render("pagina/quienes-somos", {
     hola: "holaaaaa",
     pagina: "Quienes Somos",
-    _token
+    _token,
   });
 };
 
@@ -30,13 +29,14 @@ const categoriaMenu = async (req, res) => {
   const productos = await producto.findAll({
     where: {
       categoriaId: id,
+      stock: true,
     },
   });
   res.render("pagina/ver-menu", {
     pagina: "Menu",
     productos,
     Categoria,
-    _token
+    _token,
   });
 };
 
@@ -44,7 +44,7 @@ const ubicacionContacto = (req, res) => {
   const { _token } = req.cookies;
   res.render("pagina/ubicacion-contacto", {
     pagina: "Ubicacion y Contacto",
-    _token
+    _token,
   });
 };
 

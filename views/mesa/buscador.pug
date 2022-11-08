@@ -1,0 +1,52 @@
+extends ../layout/opciones_usuario
+
+block opciones_moderador
+    h2.tituloCategoria= pagina
+    if errores
+        div.erroresGestion
+            each error in errores
+                p.error= error.msg
+
+    div.buscadoresMesa
+        div.btnMesa
+            form(action="/mesa/ver-mesas" method="GET")
+                //- input(type="hidden" name="_csrf" value= csrfToken)
+                div.formVerMesa
+                    div 
+                        label.labelLogins(for="fecha") Fecha:  
+                        input#fecha.inputReserva(type="date", name="fecha") 
+                    input.btnOpcion(type="submit" value= "Ver Mesas")
+        div.btnMesa
+            form(action="/mesa/buscador" method="POST" )
+                input(type="hidden" name="_csrf" value= csrfToken)
+                div.busqueda
+                    label.labelLogins(for="termino") Busqueda:
+                    input.buscarCodigo(type="text" id="termino" name="termino" placeholder="Buscar reserva por codigo")
+                    input.btnOpcion(type="submit" value="Buscar")
+    div.etiquetasMesa
+        p Fecha de Reserva
+        p Hora de Reserva
+        p.ocultarCelu Personas
+        p.ocultarCelu Comida
+        p Estado 
+        p.ocultarCelu Mesa
+        p Codigo
+        p.ocultarCelu
+    div.datosReservas
+        if reservas.length
+            each reserva in reservas
+                div.datosReserva  
+                    p= reserva.fecha
+                    p= reserva.hora.hora
+                    p.ocultarCelu= reserva.personas
+                    p.ocultarCelu= reserva.comida
+                    if reserva.estado == null
+                        p En Espera
+                    else 
+                        p= reserva.estado.estado
+                    p.ocultarCelu= reserva.mesaId
+                    if reserva.estado == null
+                        p Sin codigo
+                    else 
+                        p= reserva.codigo
+                    a.btnOpcion(href=`/mesa/editar/${reserva.id}`) Editar

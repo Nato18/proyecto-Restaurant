@@ -9,12 +9,12 @@ import MenuRoutes from "./routes/MenuRoutes.js";
 import navegacionRoutes from "./routes/navegacionRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import mesaRoutes from "./routes/mesaRoutes.js";
+import confiRoutes from "./routes/confiRoutes.js";
 import db from "./config/db.js";
 import { cookie } from "express-validator";
 
 // Crear la app
 const app = express();
-
 
 // Habilitar lectura de datos
 app.use(express.urlencoded({ extended: true }));
@@ -49,6 +49,7 @@ app.use("/reserva", reservaRoutes);
 app.use("/menu", MenuRoutes);
 app.use("/admin", adminRoutes);
 app.use("/mesa", mesaRoutes);
+app.use("/configurar", confiRoutes);
 
 //Definir un puerto y arrancar el proyecto
 const port = process.env.PORT || 3000;

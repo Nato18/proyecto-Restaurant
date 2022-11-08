@@ -4,6 +4,7 @@ const emailRegistro = async (datos) => {
   const transport = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
+    secure: true,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
@@ -54,4 +55,52 @@ const emailOlvidePassword = async (datos) => {
           <p>Si tu no solicitaste el cambio de password, puedes ignorar el mensaje</p>`,
   });
 };
-export { emailRegistro, emailOlvidePassword };
+
+const mesaConfirmada = async (datos) => {
+  const transport = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  const { email, nombre } = datos;
+  await transport.sendMail({
+    from: "Restaurante.com",
+    to: email,
+    subject: "Reservacion Confirmada en Restaurante.com",
+    text: "Reservacion Confirmada en Restaurante.com",
+    html: `
+          <p>Hola ${nombre}, la reservacion que has realizado a sido confirmada.</p>
+          <p>Presenta el codigo a la entrada para hacer el ingreso.</p>
+          <p>Recuerda llegar con minutos de antecelacion al restaurante.</p>
+          `,
+  });
+};
+
+const mesaRechazada = async (datos) => {
+  const transport = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  const { email, nombre } = datos;
+  await transport.sendMail({
+    from: "Restaurante.com",
+    to: email,
+    subject: "Reservacion Rechazada en Restaurante.com",
+    text: "Reservacion Rechazada en Restaurante.com",
+    html: `
+          <p>Hola ${nombre}. Lo sentimos, la reservacion que has realizado a sido rechazada, debido a que no se encuentran mesas disponibles para la hora seleccionada. Intenta otra vez porfavor.</p>
+          <p>Responderemos a la brevedad.</p>
+          <p>Muchas Gracias por su comprension.</p>
+          `,
+  });
+};
+export { emailRegistro, emailOlvidePassword, mesaConfirmada, mesaRechazada };

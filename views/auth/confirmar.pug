@@ -1,12 +1,15 @@
 extends ../layout/index
 
 block contenido
-    div 
-        h2.titulo= pagina
-    div
-    
+    div.contenedorGeneral
+        h1.tituloPaginas= pagina
+        
+        
 
-    p(class= error ? "token_error" : "token_bien")= mensaje
+        p.centrarTexto.aLogins(class= error ? "token_error" : "token_bien")= mensaje
+        div 
 
-    if !error
-        a(href="/auth/login") Ya puedes Iniciar sesion 
+        if !error
+            div.centrarTexto.separacionContrasenas
+                a.aLogins(href="/auth/login") Ya puedes 
+                    span.spanLogins Iniciar sesion 

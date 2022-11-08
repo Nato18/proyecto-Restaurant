@@ -5,7 +5,6 @@ import {
   ubicacionContacto,
   categoriaMenu,
 } from "../controllers/navegacionControllers.js";
-import login from "../middleware/login.js";
 const router = express.Router();
 
 // Navegacion en paginas iniciales

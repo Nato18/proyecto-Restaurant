@@ -1,0 +1,12 @@
+extends ../layout/opciones_usuario
+
+block opciones_moderador
+    h2.tituloPaginas= pagina
+    div.contenedorMesa
+        p.tamLetra.texto300 Tu solicitud de Reserva 
+            span.datoReserva ha sido cancelado.
+        br
+        p.tamLetra.texto300 Seras redireccionado a la pagina de 
+            span.datoReserva  Inicio
+    div.centrarTexto 
+        a.btnOpcion(href="/") Continuar 

@@ -10,7 +10,10 @@ header.header
         a(href="/reserva/realizar-reserva").btnHeader.reserva Reservar Ahora
         if _token
             a(href="/opciones/opciones-usuario") Perfil
-            a(href="/auth/registro") Cerrar Sesion
+            a(href="/auth/login") Cerrar Sesion 
+            //- form(action="/auth/cerrar-sesion" method="POST")
+            //-     input(type="hidden" name="_csrf" value=csrfToken)
+            //-     input(type="submit" value="Cerrar Sesion") 
         else    
             a(href="/auth/login").btnHeader.iniciaSesion Iniciar Sesion
             a(href="/auth/registro") Registrarse

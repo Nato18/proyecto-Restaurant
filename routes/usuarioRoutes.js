@@ -2,7 +2,6 @@ import express from "express";
 import {
   formulariologin,
   autenticar,
-  cerrarSesion,
   formularioregistro,
   registrar,
   formularioOlvidePassword,
@@ -19,7 +18,6 @@ const router = express.Router();
 router.get("/login", formulariologin);
 router.post("/login", autenticar);
 
-router.post("/cerrar-sesion",cerrarSesion)
 
 router.get("/registro", formularioregistro);
 router.post("/registro", registrar);

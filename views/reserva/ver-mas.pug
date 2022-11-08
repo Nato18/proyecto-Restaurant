@@ -1,0 +1,64 @@
+extends ../layout/opciones_usuario
+
+block opciones_moderador
+    h2.tituloPaginas= pagina
+    div.datosReservacion
+        div 
+            p.datoReserva Fecha:  
+                span.spanDatoReserva=`${datos.fecha}`
+        div
+            p.datoReserva Hora: 
+                span.spanDatoReserva=`${datos.hora.hora}`
+        div 
+            p.datoReserva Personas: 
+                span.spanDatoReserva= `${datos.personas}`
+        div
+            p.datoReserva Comida Reservada: 
+                span.spanDatoReserva= `${datos.comida}`
+        div
+            p.datoReserva Estado de la Mesa: 
+                if datos.estado == null
+                    span.spanDatoReserva En espera
+                else
+                    span.spanDatoReserva= `${datos.estado.estado}`
+        div
+            p.datoReserva Codigo: 
+                if !datos.estado 
+                    span.spanDatoReserva Sin Codigo
+                else
+                    span.spanDatoReserva= `${datos.codigo}`
+    if pedidoComida
+        div.tituloCategoria
+            p Comida Reservada
+        if productos.length
+            div.datosReservacion
+                p.datoReserva.tamLetra Total:
+                    span.spanDatoReserva= `$${datos.monto}`
+            div.contenedorMesa
+                each producto in productos
+                    - var total = 0
+                    div.contenedorGestionProducto
+                        p.categoriaProducto= producto.categoria.nombre
+                        div.gestionProductoTextos
+                            p.tituloProducto= producto.titulo
+                            p.descripcionProducto= producto.descripcion
+                            p.precioProducto $ #{producto.precio} 
+
+                        div
+                            img.imgProducto(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt=`Imagen producto ${producto.titulo}`)
+                        div     
+                            each comida in comidas
+                                if comida == producto.titulo
+                                    - total ++;
+                            p.cantidad x #{total}
+                        
+        
+
+        else
+            p No hay Producto
+    else
+        div.tituloCategoria
+            p No Reservo Comida
+
+    div.centrarTexto
+        a.btnOpcion(href=`/reserva/ver-reservas`) Volver

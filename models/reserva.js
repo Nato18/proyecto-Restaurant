@@ -14,12 +14,10 @@ const reserva = db.define("reserva", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  reservaComida:{
-   type: DataTypes.JSON
-  },
-  monto: {
-    type: DataTypes.INTEGER,
-  },
+  reservaComida: DataTypes.TEXT,
+  monto: DataTypes.INTEGER,
+  codigo: DataTypes.TEXT,
+  finalizado: DataTypes.BOOLEAN,
 });
 
 export default reserva;

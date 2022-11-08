@@ -1,0 +1,90 @@
+extends ../layout/opciones_usuario
+
+block opciones_moderador
+
+    h2.tituloPaginas= pagina
+    div.datosReservacion
+        div 
+            p.datoReserva Fecha:  
+                span.spanDatoReserva=`${datos.fecha}`
+        div
+            p.datoReserva Hora: 
+                span.spanDatoReserva=`${datos.hora.hora}`
+        div 
+            p.datoReserva Personas: 
+                span.spanDatoReserva= `${datos.personas}`
+        div
+            p.datoReserva Comida Reservada: 
+                span.spanDatoReserva= `${datos.comida}`
+
+        div.estadosCambios
+            p.datoReserva Codigo: 
+                if datos.estadoId == null
+                    span.spanDatoReserva= `Sin Codigo`
+                else
+                    span.spanDatoReserva= `${datos.codigo}`
+        
+    if errores
+        div.erroresEditarMesa
+            each error in errores
+                    p.error=error.msg
+    div 
+        form(method="POST") 
+            input(type="hidden", name="_csrf" value= csrfToken)
+            div.estadosMesaCambios
+                div.opcionesCelu
+                    label(for="estado") Estado: 
+                    select.inputLogins#estado(name="estado") 
+                        option(value="") - Seleccione - 
+                        each estado in estados
+                            option(value=estado.id selected= datos.estadoId ? datos.estadoId == estado.id ? true : false : null)= estado.estado
+                
+                div.opcionesCelu
+                    label(for="mesa") Mesa: 
+                    select.inputLogins#mesa(name="mesa") 
+                        option(value="") - Seleccione - 
+                        each mesa in mesas
+                            option(value=mesa.id selected= datos.mesaId ? datos.mesaId == mesa.id ? true : false : null)= mesa.numero
+            
+            div.btnsJuntos
+                input.btnOpcion(type="submit", value="Aplicar") 
+                a.btnOpcion(href="/mesa/gestionar-mesa") Volver 
+        div.centrarTextoCelu 
+            form(action="/mesa/ver-mesas" method="GET")
+                //- input(type="hidden", name="_csrf" value= csrfToken)
+                input(type="hidden" name="fecha" value=`${datos.fecha}`)
+                input.btnOpcion(type="submit", value="Ver Mesas" formtarget="_blank") 
+    if pedidoComida
+        div.tituloCategoria
+            p Comida Reservada
+        if productos.length
+            div.datosReservacion
+                p.datoReserva.tamLetra Total:
+                    span.spanDatoReserva= `$${datos.monto}`
+            div.contenedorMesa
+                each producto in productos
+                    - var total = 0
+                    div.contenedorGestionProducto
+                        p.categoriaProducto= producto.categoria.nombre
+                        div.gestionProductoTextos
+                            p.tituloProducto= producto.titulo
+                            p.descripcionProducto= producto.descripcion
+                            p.precioProducto $ #{producto.precio} 
+
+                        div
+                            img.imgProducto(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt=`Imagen producto ${producto.titulo}`)
+                        div     
+                            each comida in comidas
+                                if comida == producto.titulo
+                                    - total ++;
+                            p.cantidad x #{total}
+                        
+        
+            
+        else
+            p No hay Producto
+    else
+        div.tituloCategoria
+            p No Reservo Comida
+
+    

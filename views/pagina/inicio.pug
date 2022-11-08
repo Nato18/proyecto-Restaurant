@@ -1,21 +1,21 @@
 extends ../layout/index
 
 block contenido
-    div.contenedor
-        div.imagenInicio
-            img.imagenInicio(src="../img/inicio.png", alt="")
-            p.letraInicio RESTAURANTE
+    div.imagenInicio
+        //- img.imagenInicio(src="../img/inicio.png", alt="")
+        p.letraInicio RESTAURANTE
 
+    div.contenedor
         div.seccionInicioBlanco
             img.imgSeccionInicio(src="../img/quienes-somos.jpg", alt="")
-            div
+            div.textosInicio
                 p.tituloInicioBlanco Quienes Somos 
                 p.descripcionInicioBlanco.contenedor-des Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam netus cursus massa ornare mauris volutpat.
                 a(href="/quienes-somos")
                     img.flechaBlanco(src="../img/flecha.png", alt="")
 
         div.seccionInicioCafe
-            div
+            div.textosInicio
                 p.tituloInicioCafe Conoce Nuestra Carta 
                 p.descripcionInicioCafe.contenedor-des Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam netus cursus massa ornare mauris volutpat.
                 a(href="/ver-menu/1") 
@@ -24,7 +24,7 @@ block contenido
 
         div.seccionInicioBlanco
             img.imgSeccionInicio(src="../img/donde-encontramos.jpg", alt="") 
-            div
+            div.textosInicio
                 p.tituloInicioBlanco Donde Nos Encontramos
                 p.descripcionInicioBlanco.contenedor-des Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam netus cursus massa ornare mauris volutpat.
                 a(href="/ubicacion-contacto") 

@@ -6,13 +6,14 @@ block contenido
         div
             if mostrar
                 div.opciones_mode
-                    a(href="" class="link opcion_mode") Reservar 
-                    a(href="" class="link opcion_mode") Ver reservaciones 
-                    if user == 1
+                    a(href="/reserva/ver-reservas" class="link opcion_mode") Ver reservaciones 
+                    if user.id == 1
                         a(href="/mesa/gestionar-mesa" class="link opcion_mode") Gestionar Mesas
                         a(href="/menu/gestionar_menu" class="link opcion_mode") Gestionar Menu
                         a(href="/admin/admin-gestionar" class="link opcion_mode") Gestionar Administradores
-                    a(href="" class="link opcion_mode") Configuracion de la cuenta
+                    if user.admin == true
+                        a(href="/mesa/gestionar-mesa" class="link opcion_mode") Gestionar Mesas
+                    a(href="/configurar/" class="link opcion_mode") Configuracion de la cuenta
 
-        div 
+        div.contenedorCelu
             block opciones_moderador

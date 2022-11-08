@@ -5,37 +5,36 @@ extends ../layout/index
 
 block contenido
     div.login.contenedor
-        div.posFormLogin
-            h2.tituloLogins= pagina
+        div.posFormReserva
+            h2.tituloLogins.letraBlanca= pagina
 
-            //- if errores
-            //-     div
-            //-         each error in errores
-            //-             p.error= error.msg
+            if errores
+                div.errores
+                    each error in errores
+                        p.error= error.msg
 
             form( method="POST" action="/reserva/realizar-reserva")
                 input(type="hidden", name="_csrf" value= csrfToken)
                 div.divLogins
-                    label.labelLogins(for="fecha") Fecha de Reservacion 
-                    input.inputReserva(type="date" name="fecha")  
+                    label.labelLogins.letraBlanca(for="fecha") Fecha de Reservacion 
+                    input.inputReserva(type="date" name="fecha" value= datos.fecha ? datos.fecha : '')  
                 div.divLogins 
-                    label.labelLogins(for="hora") Hora de Reservacion
+                    label.labelLogins.letraBlanca(for="hora") Hora de Reservacion
                     select.inputReserva#hora(name="hora") 
                         option(value="") - Seleccione - 
                         each hora in horas
                             option(value=hora.id selected= datos.hora ? datos.hora == hora.id ? true : false : null)= hora.hora  
                 div.divLogins 
-                    label.labelLogins(for="personas") Numero de Personas 
-                    input.inputReserva(type="number" name="personas")
-                    p.labelLogins.marginReserva ¿Desea Reservar comida?
+                    label.labelLogins.letraBlanca(for="personas") Numero de Personas 
+                    input.inputReserva(type="number" name="personas" value= datos.personas ? datos.personas : '')
+                    p.labelLogins.marginReserva.letraBlanca ¿Desea Reservar comida?
                 div.btnsRadio
                     div.btnsRadio 
-                        label.labelLogins(for="si") Si
+                        label.labelLogins.letraBlanca(for="si") Si
                         input.btnRadio(type="radio" name="comida" id="si" value="si")  
                     div.btnsRadio
-                        label.labelLogins(for="no") No
+                        label.labelLogins.letraBlanca(for="no") No
                         input.btnRadio(type="radio" name="comida" id="no" value="no") 
-
-                input.btnLogins(type="submit" value="Continuar") 
+                input.btnLogins.padding(type="submit" value="Continuar") 
         div
-            img.imgLogin(src="../img/login.jpg", alt="")
+            img.imgLogin.imgReserva(src="../img/login.jpg", alt="")

@@ -1,5 +1,6 @@
 import { usuario } from "../models/index.js";
 import { check, validationResult } from "express-validator";
+import { Sequelize } from "sequelize";
 
 const gestionarAdmin = async (req, res) => {
   const { _token } = req.cookies;
@@ -19,11 +20,12 @@ const gestionarAdmin = async (req, res) => {
     res.render("admin/admin-gestionar", {
       nombre: req.usuario.nombre,
       pagina: "Gestionar Admin",
-      user: req.usuario.id,
+      // user: req.usuario.id,
+      user: req.usuario,
       mostrar: true,
       administradores,
       csrfToken: req.csrfToken(),
-      _token
+      _token,
     });
   } catch (error) {
     console.log(error);
@@ -35,7 +37,7 @@ const formularioAdmin = (req, res) => {
   res.render("admin/admin-crear", {
     pagina: "Creando Admin",
     csrfToken: req.csrfToken(),
-    _token
+    _token,
   });
 };
 
@@ -103,6 +105,7 @@ const crearAdmin = async (req, res) => {
     email,
     contrasena,
     admin: true,
+    confirmado:true
   });
   res.redirect("/admin/admin-gestionar");
 };
@@ -116,19 +119,21 @@ const editarAdmin = async (req, res) => {
     pagina: "Editar Admin",
     csrfToken: req.csrfToken(),
     admin: Usuario,
-    _token
+    _token,
   });
 };
 
 const guardarCambios = async (req, res) => {
   let resultado = validationResult(req);
+  const { _token } = req.cookies;
 
   if (!resultado.isEmpty()) {
     return res.render("admin/admin-editar", {
-      pagina: "Editar Menu",
+      pagina: "Editar Admin",
       csrfToken: req.csrfToken(),
       errores: resultado.array(),
       admin: req.body,
+      _token,
     });
   }
 
@@ -156,10 +161,35 @@ const eliminarAdmin = async (req, res) => {
   res.redirect("/admin/admin-gestionar");
 };
 
-const buscador = async (req,res) =>{
+const buscador = async (req, res) => {
+  const { termino } = req.params;
   const { _token } = req.cookies;
-  
-}
+  // Revisar que no este vacio
+  if (!termino) {
+    return res.redirect("back");
+  }
+
+  // Consultar los productos
+  const administradores = await usuario.findAll({
+    where: {
+      nombre: {
+        [Sequelize.Op.like]: "%" + termino + "%",
+      },
+      admin: true,
+    },
+  });
+
+  res.render("admin/admin-buscador", {
+    pagina: "Resultado de Busqueda",
+    _token,
+    csrfToken: req.csrfToken(),
+    mostrar: true,
+    // user: req.usuario.id,
+    user: req.usuario,
+    nombre: req.usuario.nombre,
+    administradores,
+  });
+};
 export {
   gestionarAdmin,
   formularioAdmin,
@@ -167,5 +197,5 @@ export {
   editarAdmin,
   guardarCambios,
   eliminarAdmin,
-  buscador
+  buscador,
 };

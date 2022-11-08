@@ -2,36 +2,36 @@ extends ../layout/index
 
 block contenido
     div.registro.contenedor
-        div 
+        div.marginImgRegistroCelu
             img.imgRegistro(src="../img/registrarse.jpg", alt="")
-        div 
-            h2.tituloLogins= pagina
+        div.posFormRegistro
+            h2.tituloLogins.letraBlanca= pagina
         
             if errores
-                div
+                div.errores
                     each error in errores
                         p.error= error.msg
 
             form(method="POST" action="/auth/registro" noValidate)
                 input(type="hidden" name="_csrf" value= csrfToken  )
                 div.divLogins
-                    label.labelLogins(for="nombre") Nombre Completo
+                    label.labelLogins.letraBlanca(for="nombre") Nombre Completo
                     input.inputLogins#nombre(placeholder="Renato Parraguez Rubilar", type="text", name="nombre" value= usuario ? usuario.nombre : '')
                 div.divLogins 
-                    label.labelLogins(for="email") Correo Electronico
+                    label.labelLogins.letraBlanca(for="email") Correo Electronico
                     input.inputLogins#email(placeholder="Correo_electronico@gmail.com", type="email", name="email" value= email ? usuario.email : '')
                 div.divLogins 
-                    label.labelLogins(for="telefono") Telefono
-                    input.inputLogins#telefono(placeholder="12345678", type="number", name="telefono")                            
+                    label.labelLogins.letraBlanca(for="telefono") Telefono
+                    input.inputLogins#telefono(placeholder="12345678", type="number", name="telefono" value = telefono ? usuario.telefono : "")                            
                 div.divContrasenas 
                     div.divLogins 
-                        label.labelLogins(for="contrasena") Contraseña
+                        label.labelLogins.letraBlanca(for="contrasena") Contraseña
                         input.inputLogins#contrasena(placeholder="Contraseña", type="password", name="contrasena")                            
                     div.divLogins 
-                        label.labelLogins(for="repetir_contrasena") Repite la Contraseña
+                        label.labelLogins.letraBlanca(for="repetir_contrasena") Repite la Contraseña
                         input.inputLogins#repetir_contrasena(placeholder="Repetir Contraseña", type="password", name="repetir_contrasena")
 
                 input.btnLogins(type="submit", value="Crear Cuenta")
             div.div_aRegistro
-                a.aLogins(href="/auth/login") ¿Ya estas registrado?
+                a.aLogins.letraBlanca(href="/auth/login") ¿Ya estas registrado?
                     span.spanLogins  Inicia Sesion 

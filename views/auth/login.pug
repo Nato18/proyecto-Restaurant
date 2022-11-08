@@ -4,29 +4,29 @@ block contenido
     div.login.contenedor
 
         div.posFormLogin 
-            h2.tituloLogins= pagina
+            h2.tituloLogins.letraBlanca= pagina
 
             if errores
-                div
+                div.errores
                     each error in errores
                         p.error= error.msg
             
             form(method="POST" action="/auth/login")
                 input(type="hidden" name="_csrf" value= csrfToken  )
                 div.divLogins
-                    label.labelLogins(for="email") Correo Electronico
+                    label.labelLogins.letraBlanca(for="email") Correo Electronico
                     input.inputLogins#email(placeholder="Correo_electronico@gmail.com", type="text", name="email")
                 div.divLogins
-                    label.labelLogins(for="contrasena") Contraseña
+                    label.labelLogins.letraBlanca(for="contrasena") Contraseña
                     input.inputLogins#contrasena(placeholder="Contraseña", type="password", name="contrasena")                            
                 
                 input.btnLogins(type="submit", value="Iniciar Sesion")
                 
             div.div_aLogin
-                a.aLogins.posLogin(href="/auth/registro") ¿No tienes cuenta? 
+                a.aLogins.posLogin.letraBlanca(href="/auth/registro") ¿No tienes cuenta? 
                     span.spanLogins Crea una
-                a.aLogins.posLogin(href="/auth/olvide-password") Olvide mi Contraseña
+                a.aLogins.posLogin.letraBlanca(href="/auth/olvide-password") Olvide mi Contraseña
 
 
-        div
+        div.marginImgLoginCelu
             img.imgLogin(src="../img/login.jpg", alt="")

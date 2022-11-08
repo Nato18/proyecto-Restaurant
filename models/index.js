@@ -3,12 +3,13 @@ import categoria from "./categoria.js";
 import usuario from "./Usuario.js";
 import reserva from "./reserva.js";
 import hora from "./hora.js";
-import reservaComida from "./reservaComida.js";
+import estado from "./estado.js";
+import mesa from "./mesa.js";
 
 producto.belongsTo(categoria, { foreignKey: "categoriaId" });
 producto.belongsTo(usuario, { foreignKey: "usuarioId" });
 reserva.belongsTo(hora, { foreignKey: "horaId" });
+reserva.belongsTo(estado, { foreignKey: "estadoId" });
 reserva.belongsTo(usuario, { foreignKey: "usuarioId" });
-reservaComida.belongsTo(producto, { foreignKey: "productoId" });
-reservaComida.belongsTo(usuario, { foreignKey: "usuarioId" });
-export { producto, categoria, usuario, reserva, hora, reservaComida };
+reserva.belongsTo(mesa, { foreignKey: "mesaId" });
+export { producto, categoria, usuario, reserva, hora, estado, mesa };
