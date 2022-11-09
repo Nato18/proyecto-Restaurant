@@ -10,7 +10,16 @@ block opciones_moderador
                 label.labelLogins(for="termino") Busqueda:
                 input.inputLogins(type="text" id="termino" name="termino" placeholder="Buscar Producto")
                 input.btnOpcion(type="submit" value="Buscar")
-      
+    form(action="/menu/gestionar_menu" method="GET")
+        div.filtrosBusqueda
+            div.filtroEstados
+                label.labelLogins(for="filtro") Filtrar por Categoria:  
+                select.inputReserva#filtro(name="filtro")
+                    option(value="") - Sin Filtro -
+                    each categoria in categorias
+                        option(value=categoria.id|)= categoria.nombre
+            input.btnOpcion(type="submit" value= "Filtrar")
+    
     if productos.length
         div
 

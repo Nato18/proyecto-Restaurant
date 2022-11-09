@@ -920,9 +920,7 @@ img {
   .imgProducto {
     width: 100%;
   }
-  /* .categorias a:nth-child(4){
-    grid-column: 1/3;
-  } */
+
 }
 .btnOpcion {
   background-color: #845e02;
@@ -1000,6 +998,30 @@ img {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
+  margin-bottom: 2rem;
+}
+/* .buscadoresMesa div:nth-child(3){
+  grid-column: 3/1;
+} */
+
+.filtrosBusqueda{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.filtroEstados{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.filtroFecha{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 .buscarCodigo {
   font-family: "Poppins", sans-serif;
@@ -1108,7 +1130,6 @@ img {
   }
 }
 .btnMesa {
-  margin-bottom: 5rem;
   padding-left: 10rem;
 }
 @media (max-width: 758px) {

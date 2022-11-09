@@ -6,11 +6,10 @@ block opciones_moderador
         div.erroresGestion
             each error in errores
                 p.error= error.msg
-
     div.buscadoresMesa
+
         div.btnMesa
             form(action="/mesa/ver-mesas" method="GET")
-                //- input(type="hidden" name="_csrf" value= csrfToken)
                 div.formVerMesa
                     div 
                         label.labelLogins(for="fecha") Fecha:  
@@ -23,6 +22,22 @@ block opciones_moderador
                     label.labelLogins(for="termino") Busqueda:
                     input.buscarCodigo(type="text" id="termino" name="termino" placeholder="Buscar reserva por codigo")
                     input.btnOpcion(type="submit" value="Buscar")
+
+        //- div.btnMesa
+    form(action="/mesa/gestionar-mesa" method="GET")
+        div.filtrosBusqueda
+            div.filtroEstados
+                label.labelLogins(for="filtro") Filtrar por Estado:  
+                select.inputReserva#filtro(name="filtro")
+                    option(value="") - Sin Filtro -
+                    option(value="7") En espera
+                    each estado in estados
+                        option(value=estado.id)= estado.estado
+            div
+                div.filtroFecha 
+                    label.labelLogins(for="fecha") Filtrar por Fecha:  
+                    input#fecha.inputReserva(type="date", name="fecha") 
+            input.btnOpcion(type="submit" value= "Filtrar")
     div.etiquetasMesa
         p Fecha de Reserva
         p Hora de Reserva

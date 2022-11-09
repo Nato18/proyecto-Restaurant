@@ -6,51 +6,90 @@ import { Sequelize } from "sequelize";
 //Gestion de Menu
 const gestion_menu = async (req, res) => {
   const { _token } = req.cookies;
-  const { pagina: paginaActual } = req.query;
-
+  const { pagina: paginaActual, filtro } = req.query;
+  const [categorias] = await Promise.all([categoria.findAll()]);
   const expresion = /^[0-9]$/;
-
-  if (!expresion.test(paginaActual)) {
-    return res.redirect("/menu/gestionar_menu?pagina=1");
+  console.log("pagina antes del if:", paginaActual);
+  console.log("filtro antes del if:", filtro);
+  if (!expresion.test(paginaActual) && !expresion.test(filtro)) {
+    return res.redirect("/menu/gestionar_menu?pagina=1&filtro=0");
+  } else if (!expresion.test(paginaActual) && expresion.test(filtro)) {
+    return res.redirect(`/menu/gestionar_menu?pagina=1&filtro=${filtro}`);
   }
 
+  console.log("pagina despues del if:", paginaActual);
+  console.log("filtro despues del if:", filtro);
   try {
     const { id } = req.usuario;
-
     // Limites
-    const limit = 6;
+    const limit = 1;
     const offset = paginaActual * limit - limit;
-
-    const [productos, total] = await Promise.all([
-      producto.findAll({
+    if (filtro != null && filtro != 0) {
+      console.log("segundo If");
+      const [productos, total] = await Promise.all([
+        producto.findAll({
+          limit,
+          offset,
+          where: {
+            usuarioId: id,
+            categoriaId: filtro,
+          },
+          include: [{ model: categoria, as: "categoria" }],
+        }),
+        producto.count({
+          where: {
+            usuarioId: id,
+          },
+        }),
+      ]);
+      res.render("menu/gestionar_menu", {
+        pagina: "Gestionar Menu",
+        nombre: req.usuario.nombre,
+        productos,
+        csrfToken: req.csrfToken(),
+        paginas: Math.ceil(total / limit),
+        paginaActual,
         limit,
         offset,
-        where: {
-          usuarioId: id,
-        },
-        include: [{ model: categoria, as: "categoria" }],
-      }),
-      producto.count({
-        where: {
-          usuarioId: id,
-        },
-      }),
-    ]);
-    res.render("menu/gestionar_menu", {
-      pagina: "Gestionar Menu",
-      nombre: req.usuario.nombre,
-      productos,
-      csrfToken: req.csrfToken(),
-      paginas: Math.ceil(total / limit),
-      paginaActual,
-      limit,
-      offset,
-      total,
-      // user: id,
-      user: req.usuario,
-      mostrar: true,
-      _token,
-    });
+        total,
+        user: req.usuario,
+        mostrar: true,
+        _token,
+        categorias,
+      });
+    } else if (filtro == 0) {
+      console.log("primer If");
+      const [productos, total] = await Promise.all([
+        producto.findAll({
+          limit,
+          offset,
+          where: {
+            usuarioId: id,
+          },
+          include: [{ model: categoria, as: "categoria" }],
+        }),
+        producto.count({
+          where: {
+            usuarioId: id,
+          },
+        }),
+      ]);
+      res.render("menu/gestionar_menu", {
+        pagina: "Gestionar Menu",
+        nombre: req.usuario.nombre,
+        productos,
+        csrfToken: req.csrfToken(),
+        paginas: Math.ceil(total / limit),
+        paginaActual,
+        limit,
+        offset,
+        total,
+        user: req.usuario,
+        mostrar: true,
+        _token,
+        categorias,
+      });
+    }
   } catch (error) {
     console.log(error);
   }

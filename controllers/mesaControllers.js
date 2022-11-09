@@ -11,26 +11,147 @@ import { mesaConfirmada, mesaRechazada } from "../helpers/emails.js";
 import { check, validationResult } from "express-validator";
 const gestionarMesa = async (req, res) => {
   const { _token } = req.cookies;
-  const { id } = req.usuario;
-  const [reservas] = await Promise.all([
-    reserva.findAll({
-      include: [
-        { model: hora, as: "hora" },
-        { model: estado, as: "estado" },
-      ],
-      where: { finalizado: true },
-    }),
-  ]);
-  res.render("mesa/mesa-gestionar", {
-    pagina: "Gestionar Mesas",
-    mostrar: true,
-    // user: id,
-    user: req.usuario,
-    nombre: req.usuario.nombre,
-    reservas,
-    _token,
-    csrfToken: req.csrfToken(),
-  });
+  const { filtro, fecha: filtroFecha } = req.query;
+  const [estados] = await Promise.all([estado.findAll()]);
+  if (filtro == 7) {
+    const [reservas] = await Promise.all([
+      reserva.findAll({
+        include: [
+          { model: hora, as: "hora" },
+          { model: estado, as: "estado" },
+        ],
+        where: { finalizado: true, estadoId: null },
+        order: [["id", "DESC"]],
+      }),
+    ]);
+    const [estados] = await Promise.all([estado.findAll()]);
+    res.render("mesa/mesa-gestionar", {
+      pagina: "Gestionar Mesas",
+      mostrar: true,
+      user: req.usuario,
+      nombre: req.usuario.nombre,
+      reservas,
+      _token,
+      estados,
+      csrfToken: req.csrfToken(),
+    });
+  } else if (
+    filtro != null &&
+    filtro != 0 &&
+    filtroFecha != 0 &&
+    filtroFecha != null
+  ) {
+    const [reservas] = await Promise.all([
+      reserva.findAll({
+        include: [
+          { model: hora, as: "hora" },
+          { model: estado, as: "estado" },
+        ],
+        where: { finalizado: true, estadoId: filtro, fecha: filtroFecha },
+        order: [["id", "DESC"]],
+      }),
+    ]);
+    const [estados] = await Promise.all([estado.findAll()]);
+    res.render("mesa/mesa-gestionar", {
+      pagina: "Gestionar Mesas",
+      mostrar: true,
+      user: req.usuario,
+      nombre: req.usuario.nombre,
+      reservas,
+      _token,
+      estados,
+      csrfToken: req.csrfToken(),
+    });
+  } else if (filtro != null && filtro != 0) {
+    const [reservas] = await Promise.all([
+      reserva.findAll({
+        include: [
+          { model: hora, as: "hora" },
+          { model: estado, as: "estado" },
+        ],
+        where: { finalizado: true, estadoId: filtro },
+        order: [["id", "DESC"]],
+      }),
+    ]);
+    const [estados] = await Promise.all([estado.findAll()]);
+    res.render("mesa/mesa-gestionar", {
+      pagina: "Gestionar Mesas",
+      mostrar: true,
+      user: req.usuario,
+      nombre: req.usuario.nombre,
+      reservas,
+      _token,
+      estados,
+      csrfToken: req.csrfToken(),
+    });
+  } else if (
+    (filtro == null && filtroFecha == null) ||
+    (filtro == 0 && filtroFecha == 0)
+  ) {
+    const [reservas] = await Promise.all([
+      reserva.findAll({
+        include: [
+          { model: hora, as: "hora" },
+          { model: estado, as: "estado" },
+        ],
+        where: { finalizado: true },
+        order: [["id", "DESC"]],
+      }),
+    ]);
+    res.render("mesa/mesa-gestionar", {
+      pagina: "Gestionar Mesas",
+      mostrar: true,
+      user: req.usuario,
+      nombre: req.usuario.nombre,
+      reservas,
+      _token,
+      estados,
+      csrfToken: req.csrfToken(),
+    });
+  } else if (filtro == 0 && filtroFecha != null) {
+    const [reservas] = await Promise.all([
+      reserva.findAll({
+        include: [
+          { model: hora, as: "hora" },
+          { model: estado, as: "estado" },
+        ],
+        where: { finalizado: true, fecha: filtroFecha },
+        order: [["id", "DESC"]],
+      }),
+    ]);
+    res.render("mesa/mesa-gestionar", {
+      pagina: "Gestionar Mesas",
+      mostrar: true,
+      user: req.usuario,
+      nombre: req.usuario.nombre,
+      reservas,
+      _token,
+      estados,
+      csrfToken: req.csrfToken(),
+    });
+  } else if (filtro != null && filtro != 0) {
+    const [reservas] = await Promise.all([
+      reserva.findAll({
+        include: [
+          { model: hora, as: "hora" },
+          { model: estado, as: "estado" },
+        ],
+        where: { finalizado: true, estadoId: filtro, fecha: filtroFecha },
+        order: [["id", "DESC"]],
+      }),
+    ]);
+    const [estados] = await Promise.all([estado.findAll()]);
+    res.render("mesa/mesa-gestionar", {
+      pagina: "Gestionar Mesas",
+      mostrar: true,
+      user: req.usuario,
+      nombre: req.usuario.nombre,
+      reservas,
+      _token,
+      estados,
+      csrfToken: req.csrfToken(),
+    });
+  }
 };
 
 const editarMesa = async (req, res) => {
@@ -98,7 +219,6 @@ const guardarCambios = async (req, res) => {
         _token,
         csrfToken: req.csrfToken(),
         errores: resultado.array(),
-        // user: id,
         user: req.usuario,
       });
     } else {
@@ -120,7 +240,6 @@ const guardarCambios = async (req, res) => {
         pedidoComida: true,
         csrfToken: req.csrfToken(),
         errores: resultado.array(),
-        // user: id,
         user: req.usuario,
       });
     }
@@ -216,15 +335,17 @@ const verMesas = async (req, res) => {
 const buscador = async (req, res) => {
   const { termino } = req.body;
   const { _token } = req.cookies;
+  const [estados] = await Promise.all([estado.findAll()]);
   // Revisar que no este vacio
   if (!termino.trim()) {
-    return res.redirect("back");
+    console.log("vacio");
+    return res.redirect("/mesa/gestionar-mesa");
   }
 
   // Consultar los productos
   const reservas = await reserva.findAll({
     where: {
-      codigo: termino,  
+      codigo: termino,
       finalizado: true,
     },
     include: [
@@ -239,8 +360,10 @@ const buscador = async (req, res) => {
     _token,
     csrfToken: req.csrfToken(),
     mostrar: true,
-    user: req.usuario.id,
+    // user: req.usuario.id,
     nombre: req.usuario.nombre,
+    estados,
+    user: req.usuario,
   });
 };
 
