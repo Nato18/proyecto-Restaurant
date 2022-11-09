@@ -5,73 +5,44 @@ import { Sequelize } from "sequelize";
 
 //Gestion de Menu
 const gestion_menu = async (req, res) => {
+  console.log("entro al gestio menu");
   const { _token } = req.cookies;
-  const { pagina: paginaActual, filtro } = req.query;
+  const { filtro } = req.query;
+  console.log(filtro);
   const [categorias] = await Promise.all([categoria.findAll()]);
-  const expresion = /^[0-9]$/;
-  console.log("pagina antes del if:", paginaActual);
-  console.log("filtro antes del if:", filtro);
-  if (!expresion.test(paginaActual) && !expresion.test(filtro)) {
-    return res.redirect("/menu/gestionar_menu?pagina=1&filtro=0");
-  } else if (!expresion.test(paginaActual) && expresion.test(filtro)) {
-    return res.redirect(`/menu/gestionar_menu?pagina=1&filtro=${filtro}`);
-  }
 
-  console.log("pagina despues del if:", paginaActual);
-  console.log("filtro despues del if:", filtro);
   try {
     const { id } = req.usuario;
-    // Limites
-    const limit = 1;
-    const offset = paginaActual * limit - limit;
     if (filtro != null && filtro != 0) {
       console.log("segundo If");
-      const [productos, total] = await Promise.all([
+      const [productos] = await Promise.all([
         producto.findAll({
-          limit,
-          offset,
           where: {
             usuarioId: id,
             categoriaId: filtro,
           },
           include: [{ model: categoria, as: "categoria" }],
         }),
-        producto.count({
-          where: {
-            usuarioId: id,
-          },
-        }),
       ]);
       res.render("menu/gestionar_menu", {
         pagina: "Gestionar Menu",
         nombre: req.usuario.nombre,
         productos,
         csrfToken: req.csrfToken(),
-        paginas: Math.ceil(total / limit),
-        paginaActual,
-        limit,
-        offset,
-        total,
+
         user: req.usuario,
         mostrar: true,
         _token,
         categorias,
       });
-    } else if (filtro == 0) {
+    } else if (filtro == 0 || filtro == null) {
       console.log("primer If");
-      const [productos, total] = await Promise.all([
+      const [productos] = await Promise.all([
         producto.findAll({
-          limit,
-          offset,
           where: {
             usuarioId: id,
           },
           include: [{ model: categoria, as: "categoria" }],
-        }),
-        producto.count({
-          where: {
-            usuarioId: id,
-          },
         }),
       ]);
       res.render("menu/gestionar_menu", {
@@ -79,11 +50,7 @@ const gestion_menu = async (req, res) => {
         nombre: req.usuario.nombre,
         productos,
         csrfToken: req.csrfToken(),
-        paginas: Math.ceil(total / limit),
-        paginaActual,
-        limit,
-        offset,
-        total,
+
         user: req.usuario,
         mostrar: true,
         _token,
@@ -105,7 +72,6 @@ const menu_crear = async (req, res) => {
     csrfToken: req.csrfToken(),
     categorias,
     datos: {},
-    // user: id,
     user: req.usuario,
     _token,
   });
@@ -262,7 +228,7 @@ const buscador = async (req, res) => {
   const { _token } = req.cookies;
   // Revisar que no este vacio
   if (!termino.trim()) {
-    return res.redirect("back");
+    return res.redirect("/menu/gestionar_menu");
   }
 
   // Consultar los productos
@@ -281,7 +247,7 @@ const buscador = async (req, res) => {
     _token,
     csrfToken: req.csrfToken(),
     mostrar: true,
-    user: req.usuario.id,
+    user: req.usuario,
     nombre: req.usuario.nombre,
   });
 };

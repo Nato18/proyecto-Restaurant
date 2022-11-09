@@ -180,13 +180,13 @@ const verReserva = async (req, res) => {
         { model: estado, as: "estado" },
       ],
       where: { finalizado: true, usuarioId: id },
+      order: [["id", "DESC"]],
     }),
   ]);
   res.render("reserva/ver-reservas", {
     pagina: "Reservaciones Realizadas",
     _token,
     reservas,
-    // user: id,
     user:req.usuario,
     nombre: req.usuario.nombre,
     mostrar: true,

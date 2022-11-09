@@ -17,7 +17,7 @@ block opciones_moderador
                 select.inputReserva#filtro(name="filtro")
                     option(value="") - Sin Filtro -
                     each categoria in categorias
-                        option(value=categoria.id|)= categoria.nombre
+                        option(value=categoria.id)= categoria.nombre
             input.btnOpcion(type="submit" value= "Filtrar")
     
     if productos.length
@@ -43,19 +43,6 @@ block opciones_moderador
                                 form(method="POST" action=`/menu/cambiarStock/${producto.id}`)
                                     input(type="hidden", name="_csrf" value= csrfToken)
                                     input.btnOpcion(type="submit", value= producto.stock ? "Deshabilitar" : "Habilitar")
-        div.paginacion 
-            div 
-                p.mostrarCantidad Mostrando 
-                    span #{offset + 1}  a 
-                    span #{total < limit + offset ? total : limit + offset} de   
-                    span #{total} resultados
-
-            div
-                div
-                    nav
-                        - var n = 1;
-                            while n <= paginas
-                                a.numeroCantidad(href=`/menu/gestionar_menu?pagina=${n}`) #{n++}
     else
         p No hay Productos
 
