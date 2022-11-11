@@ -2,6 +2,8 @@ extends ../layout/opciones_usuario
 
 block opciones_moderador
     h2.tituloCategoria= pagina
+    div.crearReserva
+        a.btnOpcion(href="/mesa/crear-reserva" class="link") Crear Reserva
     if errores
         div.erroresGestion
             each error in errores
@@ -13,8 +15,9 @@ block opciones_moderador
                 div.formVerMesa
                     div 
                         label.labelLogins(for="fecha") Fecha:  
-                        input#fecha.inputReserva(type="date", name="fecha") 
+                        input#fecha.buscarCodigo(type="date", name="fecha") 
                     input.btnOpcion(type="submit" value= "Ver Mesas")
+
         div.btnMesa
             form(action="/mesa/buscador" method="POST" )
                 input(type="hidden" name="_csrf" value= csrfToken)
@@ -23,6 +26,7 @@ block opciones_moderador
                     input.buscarCodigo(type="text" id="termino" name="termino" placeholder="Buscar reserva por codigo")
                     input.btnOpcion(type="submit" value="Buscar")
 
+        
         //- div.btnMesa
     form(action="/mesa/gestionar-mesa" method="GET")
         div.filtrosBusqueda

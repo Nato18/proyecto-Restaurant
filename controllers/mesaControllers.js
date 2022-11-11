@@ -6,6 +6,7 @@ import {
   mesa,
   producto,
   categoria,
+  horaFinal,
 } from "../models/index.js";
 import { mesaConfirmada, mesaRechazada } from "../helpers/emails.js";
 import { check, validationResult } from "express-validator";
@@ -162,12 +163,14 @@ const editarMesa = async (req, res) => {
   });
   const [estados] = await Promise.all([estado.findAll()]);
   const [mesas] = await Promise.all([mesa.findAll()]);
+  const [horasFinal] = await Promise.all([horaFinal.findAll()]);
   if (Reserva.reservaComida == null) {
     res.render("mesa/editar-mesa", {
       pagina: "Reservacion",
       datos: Reserva,
       estados,
       mesas,
+      horasFinal,
       _token,
       csrfToken: req.csrfToken(),
     });
@@ -185,6 +188,7 @@ const editarMesa = async (req, res) => {
       estados,
       mesas,
       _token,
+      horasFinal,
       productos,
       comidas,
       pedidoComida: true,
@@ -201,70 +205,101 @@ const guardarCambios = async (req, res) => {
   await check("mesa").notEmpty().withMessage("Selecciona una mesa").run(req);
 
   let resultado = validationResult(req);
+  const { estado: estadoId } = req.body;
 
   if (!resultado.isEmpty()) {
-    const { _token } = req.cookies;
-    const { id } = req.params;
-    const Reserva = await reserva.findByPk(id, {
-      include: [{ model: hora, as: "hora" }],
-    });
-    const [estados] = await Promise.all([estado.findAll()]);
-    const [mesas] = await Promise.all([mesa.findAll()]);
-    if (Reserva.reservaComida == null) {
-      return res.render("mesa/editar-mesa", {
-        pagina: "Reservacion",
-        datos: Reserva,
-        estados,
-        mesas,
-        _token,
-        csrfToken: req.csrfToken(),
-        errores: resultado.array(),
-        user: req.usuario,
+    if (resultado.errors[0].param == "mesa" && estadoId == "2") {
+      console.log("entro");
+      const { id } = req.params;
+      const Reserva = await reserva.findByPk(id, {
+        include: [
+          { model: usuario, as: "usuario" },
+          { model: hora, as: "hora" },
+        ],
       });
+      Reserva.set({ estadoId });
+      await Reserva.save();
+      mesaRechazada({
+        nombre: Reserva.usuario.nombre,
+        email: Reserva.usuario.email,
+        fecha: Reserva.fecha,
+        hora: Reserva.hora.hora,
+        personas: Reserva.personas,
+      });
+      await Reserva.destroy();
+      res.redirect(`/mesa/gestionar-mesa`);
     } else {
-      const comidas = Reserva.reservaComida.split(",");
-      const productos = await producto.findAll({
-        where: {
-          titulo: comidas,
-        },
-        include: [{ model: categoria, as: "categoria" }],
+      const { _token } = req.cookies;
+      const { id } = req.params;
+      const Reserva = await reserva.findByPk(id, {
+        include: [{ model: hora, as: "hora" }],
       });
-      return res.render("mesa/editar-mesa", {
-        pagina: "Reservacion",
-        datos: Reserva,
-        estados,
-        mesas,
-        _token,
-        productos,
-        comidas,
-        pedidoComida: true,
-        csrfToken: req.csrfToken(),
-        errores: resultado.array(),
-        user: req.usuario,
-      });
+      const [estados] = await Promise.all([estado.findAll()]);
+      const [mesas] = await Promise.all([mesa.findAll()]);
+      const [horasFinal] = await Promise.all([horaFinal.findAll()]);
+      if (Reserva.reservaComida == null) {
+        return res.render("mesa/editar-mesa", {
+          pagina: "Reservacion",
+          datos: Reserva,
+          estados,
+          mesas,
+          horasFinal,
+          _token,
+          csrfToken: req.csrfToken(),
+          errores: resultado.array(),
+          user: req.usuario,
+        });
+      } else {
+        const comidas = Reserva.reservaComida.split(",");
+        const productos = await producto.findAll({
+          where: {
+            titulo: comidas,
+          },
+          include: [{ model: categoria, as: "categoria" }],
+        });
+        return res.render("mesa/editar-mesa", {
+          pagina: "Reservacion",
+          datos: Reserva,
+          estados,
+          mesas,
+          _token,
+          productos,
+          horasFinal,
+          comidas,
+          pedidoComida: true,
+          csrfToken: req.csrfToken(),
+          errores: resultado.array(),
+          user: req.usuario,
+        });
+      }
     }
   }
   const { id } = req.params;
   const Reserva = await reserva.findByPk(id, {
-    include: [{ model: usuario, as: "usuario" }],
+    include: [
+      { model: usuario, as: "usuario" },
+      { model: hora, as: "hora" },
+    ],
   });
-  const { estado: estadoId, mesa: mesaId } = req.body;
+  const { mesa: mesaId, horaFinal: horaFinalId } = req.body;
   try {
-    Reserva.set({ estadoId, mesaId });
-    await Reserva.save();
+    if (horaFinalId != 0) {
+      Reserva.set({ estadoId, mesaId, horaFinalId });
+      await Reserva.save();
+    } else {
+      Reserva.set({ estadoId, mesaId });
+      await Reserva.save();
+    }
     if (estadoId == 1) {
       mesaConfirmada({
         nombre: Reserva.usuario.nombre,
         email: Reserva.usuario.email,
+        fecha: Reserva.fecha,
+        hora: Reserva.hora.hora,
+        personas: Reserva.personas,
+        codigo: Reserva.codigo,
       });
       res.redirect(`/mesa/editar/${id}`);
-    } else if (estadoId == 2) {
-      mesaRechazada({
-        nombre: Reserva.usuario.nombre,
-        email: Reserva.usuario.email,
-      });
-      await Reserva.destroy();
-      res.redirect("/mesa/gestionar-mesa");
     }
   } catch (error) {
     console.log(error);
@@ -273,13 +308,14 @@ const guardarCambios = async (req, res) => {
 
 const verMesas = async (req, res) => {
   const { _token } = req.cookies;
-  console.log(req.query);
   const { fecha: fechas, pagina: paginaActual } = req.query;
+  const [estados] = await Promise.all([estado.findAll()]);
   const expresion = /^[0-9]$/;
   if (!expresion.test(paginaActual)) {
     return res.redirect(`/mesa/ver-mesas?fecha=${fechas}&pagina=1`);
   }
   if (fechas == "") {
+    const horas = await hora.findAll({});
     const { _token } = req.cookies;
     const [reservas] = await Promise.all([
       reserva.findAll({
@@ -297,6 +333,8 @@ const verMesas = async (req, res) => {
       nombre: req.usuario.nombre,
       reservas,
       _token,
+      horas,
+      estados,
       csrfToken: req.csrfToken(),
       errores: [{ msg: "Ingresa Una fecha" }],
     });
@@ -313,7 +351,10 @@ const verMesas = async (req, res) => {
         fecha: fechas,
       },
       order: [["horaId", "ASC"]],
-      include: [{ model: hora, as: "hora" }],
+      include: [
+        { model: hora, as: "hora" },
+        { model: horaFinal, as: "horasfinal" },
+      ],
     });
     const [horas] = await Promise.all([hora.findAll()]);
     res.render("mesa/ver-mesas", {
@@ -332,13 +373,68 @@ const verMesas = async (req, res) => {
     });
   }
 };
+
+const crearReserva = async (req, res) => {
+  const { _token } = req.cookies;
+  const [horas] = await Promise.all([hora.findAll()]);
+  const [mesas] = await Promise.all([mesa.findAll()]);
+  res.render("mesa/crear-reserva", {
+    pagina: "Crear Reserva",
+    horas,
+    mesas,
+    datos: {},
+    csrfToken: req.csrfToken(),
+    _token,
+    user: req.usuario,
+  });
+};
+const guardarReserva = async (req, res) => {
+  await check("fecha")
+    .notEmpty()
+    .withMessage("La fecha es obligatoria")
+    .run(req);
+  await check("hora").notEmpty().withMessage("La hora es obligatoria").run(req);
+  await check("personas")
+    .notEmpty()
+    .withMessage("El numero de personas es obligatoria")
+    .run(req);
+  await check("mesa").notEmpty().withMessage("Selecciona una mesa").run(req);
+  let resultado = validationResult(req);
+  if (!resultado.isEmpty()) {
+    const { _token } = req.cookies;
+    const [horas] = await Promise.all([hora.findAll()]);
+    const [mesas] = await Promise.all([mesa.findAll()]);
+    return res.render("mesa/crear-reserva", {
+      pagina: "Crear Reserva",
+      horas,
+      mesas,
+      datos: {},
+      csrfToken: req.csrfToken(),
+      errores: resultado.array(),
+      _token,
+      user: req.usuario,
+    });
+  }
+
+  const { fecha, hora: horaId, personas, mesa: mesaId } = req.body;
+  const reservaGuardada = await reserva.create({
+    fecha,
+    horaId,
+    personas,
+    mesaId,
+    comida: "no",
+    finalizado: true,
+    estadoId: 4,
+  });
+  reservaGuardada.save();
+  res.redirect("/mesa/gestionar-mesa");
+};
 const buscador = async (req, res) => {
   const { termino } = req.body;
   const { _token } = req.cookies;
   const [estados] = await Promise.all([estado.findAll()]);
   // Revisar que no este vacio
   if (!termino.trim()) {
-    console.log("vacio");
     return res.redirect("/mesa/gestionar-mesa");
   }
 
@@ -367,4 +463,12 @@ const buscador = async (req, res) => {
   });
 };
 
-export { gestionarMesa, editarMesa, guardarCambios, verMesas, buscador };
+export {
+  gestionarMesa,
+  editarMesa,
+  guardarCambios,
+  verMesas,
+  crearReserva,
+  guardarReserva,
+  buscador,
+};

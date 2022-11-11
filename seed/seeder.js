@@ -1,10 +1,19 @@
 import categorias from "./categorias.js";
 import usuarios from "./usuarios.js";
 import horas from "./horas.js";
-import estados from "./estados.js"
-import mesas from "./mesas.js"
+import estados from "./estados.js";
+import mesas from "./mesas.js";
+import horasFinal from "./horasFinal.js";
 // import categoria from "../models/categoria.js";
-import { categoria, usuario, reserva, hora, estado, mesa } from "../models/index.js";
+import {
+  categoria,
+  usuario,
+  reserva,
+  hora,
+  horaFinal,
+  estado,
+  mesa,
+} from "../models/index.js";
 import db from "../config/db.js";
 
 const importarDatos = async () => {
@@ -21,7 +30,8 @@ const importarDatos = async () => {
       usuario.bulkCreate(usuarios),
       hora.bulkCreate(horas),
       estado.bulkCreate(estados),
-      mesa.bulkCreate(mesas)
+      mesa.bulkCreate(mesas),
+      horaFinal.bulkCreate(horasFinal),
     ]);
     console.log("Datos Importados");
     process.exit(0);

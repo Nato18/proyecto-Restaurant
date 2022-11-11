@@ -19,7 +19,7 @@ block opciones_moderador
 
         div.estadosCambios
             p.datoReserva Codigo: 
-                if datos.estadoId == null
+                if datos.estadoId == null || datos.estadoId == 2
                     span.spanDatoReserva= `Sin Codigo`
                 else
                     span.spanDatoReserva= `${datos.codigo}`
@@ -45,7 +45,13 @@ block opciones_moderador
                         option(value="") - Seleccione - 
                         each mesa in mesas
                             option(value=mesa.id selected= datos.mesaId ? datos.mesaId == mesa.id ? true : false : null)= mesa.numero
-            
+
+                div.opcionesCelu
+                    label(for="horaFinal") Hora de Finalizacion: 
+                    select.inputLogins#horaFinal(name="horaFinal") 
+                        option(value="") - Seleccione - 
+                        each horaFinal in horasFinal
+                            option(value=horaFinal.id)= horaFinal.horafinal
             div.btnsJuntos
                 input.btnOpcion(type="submit", value="Aplicar") 
                 a.btnOpcion(href="/mesa/gestionar-mesa") Volver 

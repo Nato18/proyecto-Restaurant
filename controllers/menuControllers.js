@@ -29,7 +29,6 @@ const gestion_menu = async (req, res) => {
         nombre: req.usuario.nombre,
         productos,
         csrfToken: req.csrfToken(),
-
         user: req.usuario,
         mostrar: true,
         _token,
@@ -84,14 +83,12 @@ const menu_guardar = async (req, res) => {
   if (!resultado.isEmpty()) {
     const { _token } = req.cookies;
     const [categorias] = await Promise.all([categoria.findAll()]);
-    const { id } = req.usuario;
     return res.render("menu/menu_crear", {
       pagina: "Crear Menu",
       csrfToken: req.csrfToken(),
       categorias,
       errores: resultado.array(),
       datos: req.body,
-      // user: id,
       user: req.usuario,
       _token,
     });
@@ -136,7 +133,6 @@ const agregarImagen = async (req, res) => {
 const almacenarImagen = async (req, res, next) => {
   const { id } = req.params;
   const Producto = await producto.findByPk(id);
-  console.log(Producto.id);
 
   try {
     Producto.imagen = req.file.filename;

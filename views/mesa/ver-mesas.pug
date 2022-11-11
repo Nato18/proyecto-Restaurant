@@ -34,66 +34,6 @@ block opciones_moderador
  
     if reservas.length
         h2.tituloCategoria Mesas
-        //- div.gridVerMesas 
-
-        //-     div
-        //-         p.mesaP Mesa 1
-        //-         div.gridHoras
-        //-             each reserva in reservas
-        //-                 if reserva.mesaId == "1"
-        //-                     a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
-        //-                     : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`)= reserva.hora.hora    
-
-        //-     div
-        //-         p.mesaP Mesa 2
-        //-         div.gridHoras
-        //-             each reserva in reservas
-        //-                 if reserva.mesaId == "2"
-        //-                     a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
-        //-                     : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`)= reserva.hora.hora    
-        //-     div
-
-        //-         p.mesaP Mesa 3
-        //-         div.gridHoras
-        //-             each reserva in reservas
-        //-                 if reserva.mesaId == "3"
-        //-                     a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
-        //-                     : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`)= reserva.hora.hora    
-        //-     div
-        //-         p.mesaP Mesa 4
-        //-         div.gridHoras
-        //-             each reserva in reservas
-        //-                 if reserva.mesaId == "4"
-        //-                     a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
-        //-                     : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`)= reserva.hora.hora       
-        //-     div
-        //-         p.mesaP Mesa 5
-        //-         div.gridHoras
-        //-             each reserva in reservas
-        //-                 if reserva.mesaId == "5"
-        //-                     a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
-        //-                     : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`)= reserva.hora.hora       
-        //-     div
-        //-         p.mesaP Mesa 6
-        //-         div.gridHoras
-        //-             each reserva in reservas
-        //-                 if reserva.mesaId == "6"
-        //-                     a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
-        //-                     : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`)= reserva.hora.hora    
-        //-     div
-        //-         p.mesaP Mesa 7
-        //-         div.gridHoras
-        //-             each reserva in reservas
-        //-                 if reserva.mesaId == "7"
-        //-                     a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
-        //-                     : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`)= reserva.hora.hora        
-        //-     div
-        //-         p.mesaP Mesa 8
-        //-         div.gridHoras
-        //-             each reserva in reservas
-        //-                 if reserva.mesaId == "8"
-        //-                     a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
-        //-                     : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`)= reserva.hora.hora         
         div.gridVerMesas 
             each mesa in mesas
                 div
@@ -101,8 +41,13 @@ block opciones_moderador
                     div.gridHoras
                         each reserva in reservas
                             if reserva.mesaId == mesa.numero
+                                
                                 a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
-                                : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`)= reserva.hora.hora 
+                                : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`) #{reserva.hora.hora} - 
+                                    if reserva.horaFinalId == null
+                                        span Activo
+                                    else 
+                                        span= reserva.horasfinal.horafinal
         div.paginacion
             div 
                 p.mostrarCantidad Mostrando 

@@ -609,6 +609,17 @@ img {
 
 /* Reserva */
 
+.divReserva {
+  display: grid;
+  grid-template-rows: 0.5fr 1fr 2fr;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.divReserva p{
+  margin-left: 1rem;
+}
+
 .inputReserva {
   font-family: "Poppins", sans-serif;
   background-color: #dde1cd;
@@ -677,7 +688,7 @@ img {
   margin-top: 2rem;
   margin-bottom: 3rem;
 }
-.productosAgregados{
+.productosAgregados {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 75rem;
@@ -920,7 +931,6 @@ img {
   .imgProducto {
     width: 100%;
   }
-
 }
 .btnOpcion {
   background-color: #845e02;
@@ -989,6 +999,17 @@ img {
 
 /* Gestion Mesas */
 
+.btnsCrearReserva {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.crearReserva {
+  margin-bottom: 2rem;
+  margin-left: 5rem;
+}
 @media (max-width: 758px) {
   .ocultarCelu {
     display: none !important;
@@ -997,14 +1018,10 @@ img {
 .buscadoresMesa {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  align-items: center;
   margin-bottom: 2rem;
 }
-/* .buscadoresMesa div:nth-child(3){
-  grid-column: 3/1;
-} */
 
-.filtrosBusqueda{
+.filtrosBusqueda {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1013,12 +1030,12 @@ img {
   margin-bottom: 2.5rem;
 }
 
-.filtroEstados{
+.filtroEstados {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
-.filtroFecha{
+.filtroFecha {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -1111,14 +1128,23 @@ img {
   margin-bottom: 1rem;
 }
 .estadosMesaCambios {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
   gap: 2rem;
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 2rem;
 }
+.opcionesCelu {
+  display: flex;
+  flex-direction: column;
+}
+/* .estadosMesaCambios div:nth-child(3){
+  grid-column: 3/1;
+}  */
+
 @media (max-width: 758px) {
   .estadosMesaCambios {
     flex-direction: column;
@@ -1140,6 +1166,8 @@ img {
 .formVerMesa {
   display: flex;
   gap: 2rem;
+  margin-bottom: 2rem;
+  align-items: center;
 }
 @media (max-width: 758px) {
   .formVerMesa {
@@ -1235,3 +1263,5 @@ img {
   background-color: orange;
   color: white;
 }
+
+/* Correos Electronicos */
