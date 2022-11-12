@@ -148,9 +148,7 @@ const emailOlvidePassword = async (datos) => {
               <p>Hola ${nombre}.</p>
               <p>Has solicitado reestablecer tu contraseña en restaurante.com</p>
               <p>Sigue el siguiente enlace para generar una contraseña nueva:
-              <a href="${process.env.CONFIRM_URL}:${
-      process.env.PORT ?? 3000
-    }/auth/olvide-password/${token}">Restablecer Contraseña</a></p>
+              <a href="${process.env.CONFIRM_URL}/auth/olvide-password/${token}">Restablecer Contraseña</a></p>
               <p>Si tu no solicitaste el cambio de password, puedes ignorar el mensaje</p>
             </div>
             <div class="bordeTop marginLeftDiv">
