@@ -4,12 +4,12 @@ block opciones_moderador
 
     h2.tituloCategoria= pagina
     div.opciones_menu
-        a.btnOpcion(href="/admin/admin-crear" class="link") Agregar Administrador
+        a.btnOpcion(href="/admin/admin-crear" class="link") Agregar Personal
         form(action="/admin/admin-buscador" method="POST" )
             input(type="hidden" name="_csrf" value= csrfToken)
             div.busqueda
                 label.labelLogins(for="termino") Busqueda: 
-                input.inputLogins(type="text" id="termino" name="termino" placeholder="Buscar Administrador")
+                input.inputLogins(type="text" id="termino" name="termino" placeholder="Buscar")
                 input.btnOpcion(type="submit" value="Buscar")
 
     div.etiquetasAdmin
