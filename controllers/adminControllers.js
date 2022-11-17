@@ -19,7 +19,7 @@ const gestionarAdmin = async (req, res) => {
     ]);
     res.render("admin/admin-gestionar", {
       nombre: req.usuario.nombre,
-      pagina: "Gestionar Admin",
+      pagina: "Gestionar Personal",
       // user: req.usuario.id,
       user: req.usuario,
       mostrar: true,
@@ -72,7 +72,7 @@ const crearAdmin = async (req, res) => {
   if (!resultado.isEmpty()) {
     //Errores
     return res.render("admin/admin-crear", {
-      pagina: "Creando Admin",
+      pagina: "Creando Personal",
       errores: resultado.array(),
       csrfToken: req.csrfToken(),
       admin: {
@@ -107,7 +107,7 @@ const crearAdmin = async (req, res) => {
     admin: true,
     confirmado:true
   });
-  res.redirect("/admin/admin-gestionar");
+  res.redirect("/personal/personal-gestionar");
 };
 
 const editarAdmin = async (req, res) => {
@@ -116,7 +116,7 @@ const editarAdmin = async (req, res) => {
   const Usuario = await usuario.findByPk(id);
 
   res.render("admin/admin-editar", {
-    pagina: "Editar Admin",
+    pagina: "Editar Personal",
     csrfToken: req.csrfToken(),
     admin: Usuario,
     _token,
@@ -147,7 +147,7 @@ const guardarCambios = async (req, res) => {
       telefono,
     });
     await Usuario.save();
-    res.redirect("/admin/admin-gestionar");
+    res.redirect("/personal/personal-gestionar");
   } catch (error) {
     console.log(error);
   }
@@ -158,7 +158,7 @@ const eliminarAdmin = async (req, res) => {
   const Usuario = await usuario.findByPk(id);
 
   await Usuario.destroy();
-  res.redirect("/admin/admin-gestionar");
+  res.redirect("/personal/personal-gestionar");
 };
 
 const buscador = async (req, res) => {

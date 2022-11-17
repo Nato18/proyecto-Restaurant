@@ -7,7 +7,7 @@ block opciones_moderador
         div
             each error in errores
                 p.error= error.msg
-    form(method="POST" action="/admin/admin-crear") 
+    form(method="POST" action="/persona/personal-crear") 
         input(type="hidden", name="_csrf" value= csrfToken)
         div.divLogins
             label.labelLogins(for="nombre") Nombre Completo
@@ -26,4 +26,4 @@ block opciones_moderador
             input.inputLogins#repetir_contrasena(placeholder="Repetir Contraseña", type="password", name="repetir_contrasena")
         input.btnOpcion.espacio(type="submit" value="Crear Personal")
         div
-            a.btnOpcion(href="/admin/admin-gestionar") Volver 
+            a.btnOpcion(href="/personal/personal-gestionar") Volver 

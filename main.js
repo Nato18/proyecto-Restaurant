@@ -47,7 +47,7 @@ app.use("/auth", usuarioRoutes);
 app.use("/opciones", opcionesRoutes);
 app.use("/reserva", reservaRoutes);
 app.use("/menu", MenuRoutes);
-app.use("/admin", adminRoutes);
+app.use("/personal", adminRoutes);
 app.use("/mesa", mesaRoutes);
 app.use("/configurar", confiRoutes);
 

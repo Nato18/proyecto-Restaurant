@@ -13,14 +13,14 @@ import protegerRutaModerador from "../middleware/protegerRutaModerador.js";
 
 const router = express.Router();
 
-router.get("/admin-gestionar", protegerRutaModerador, gestionarAdmin);
+router.get("/personal-gestionar", protegerRutaModerador, gestionarAdmin);
 
-router.get("/admin-crear", protegerRutaModerador, formularioAdmin);
-router.post("/admin-crear", protegerRutaModerador, crearAdmin);
+router.get("/personal-crear", protegerRutaModerador, formularioAdmin);
+router.post("/personal-crear", protegerRutaModerador, crearAdmin);
 
-router.get("/admin-editar/:id", protegerRutaModerador, editarAdmin);
+router.get("/personal-editar/:id", protegerRutaModerador, editarAdmin);
 router.post(
-  "/admin-editar/:id",
+  "/personal-editar/:id",
   protegerRutaModerador,
   body("nombre").notEmpty().withMessage("El nombre es obligatorio"),
   body("telefono").notEmpty().withMessage("El telefono es obligatorio"),
@@ -29,5 +29,5 @@ router.post(
 );
 
 router.post("/eliminar/:id", protegerRutaModerador, eliminarAdmin);
-router.post("/admin-buscador",protegerRutaModerador, buscador)
+router.post("/personal-buscador",protegerRutaModerador, buscador)
 export default router;
