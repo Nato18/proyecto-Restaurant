@@ -7,16 +7,16 @@ block opciones_moderador
         div
             each error in errores
                 p.error= error.msg
-    form(method="POST" action="/persona/personal-crear") 
+    form(method="POST" action="/personal/personal-crear") 
         input(type="hidden", name="_csrf" value= csrfToken)
         div.divLogins
             label.labelLogins(for="nombre") Nombre Completo
             input.inputLogins(type="text" placeholder="Nombre Completo del Administrador" name="nombre" value= admin ? admin.nombre : '') 
         div.divLogins
-            label.labelLogins(for="telefono") Telefono 
+            label.labelLogins(for="telefono") Teléfono 
             input.inputLogins(type="number" placeholder="Telefono del Administrador" name="telefono" value= admin ? admin.telefono : '')
         div.divLogins 
-            label.labelLogins(for="email") Correo Electronico
+            label.labelLogins(for="email") Correo Electrónico
             input.inputLogins(type="email", placeholder="Correo Electronico del Administrador" name="email" value= admin ? admin.email : '' ) 
         div.divLogins 
             label.labelLogins(for="contrasena") Contraseña

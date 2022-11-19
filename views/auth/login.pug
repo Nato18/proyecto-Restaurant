@@ -14,7 +14,7 @@ block contenido
             form(method="POST" action="/auth/login")
                 input(type="hidden" name="_csrf" value= csrfToken  )
                 div.divLogins
-                    label.labelLogins.letraBlanca(for="email") Correo Electronico
+                    label.labelLogins.letraBlanca(for="email") Correo Electrónico
                     input.inputLogins#email(placeholder="Correo_electronico@gmail.com", type="text", name="email")
                 div.divLogins
                     label.labelLogins.letraBlanca(for="contrasena") Contraseña

@@ -35,7 +35,7 @@ const gestionarAdmin = async (req, res) => {
 const formularioAdmin = (req, res) => {
   const { _token } = req.cookies;
   res.render("admin/admin-crear", {
-    pagina: "Creando Admin",
+    pagina: "Crear Personal",
     csrfToken: req.csrfToken(),
     _token,
   });
