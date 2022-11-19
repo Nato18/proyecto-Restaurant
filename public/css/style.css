@@ -47,6 +47,21 @@ img {
     color: white;
   }
 }
+
+.logo {
+  width: 12rem;
+  height: 100%;
+
+
+}
+@media (max-width:758px){
+  .logo{
+    width: 13rem;
+    height: 4rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
 .titulo {
   text-align: center;
   font-size: 2rem;
@@ -165,6 +180,7 @@ img {
   align-items: center;
   justify-items: center;
   border-bottom: 0.1rem solid rgb(184, 184, 184);
+  padding: 0.5rem 0;
 }
 .opciones {
   display: flex;
@@ -616,7 +632,7 @@ img {
   margin-bottom: 1rem;
 }
 
-.divReserva p{
+.divReserva p {
   margin-left: 1rem;
 }
 
