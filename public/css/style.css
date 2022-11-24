@@ -1108,13 +1108,33 @@ img {
   }
 }
 /* Gestionar Mesa en especifico */
+
+.tituloCliente{
+   text-align: center;
+   font-size: 35px;
+   font-weight: 700;
+   margin-bottom: 2rem;
+}
 .datosReservacion {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
   font-size: 1.5rem;
   row-gap: 1.5rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 0.1rem solid rgb(235 235 235);
+}
+
+.datosCliente {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  font-size: 1.5rem;
+  row-gap: 1.5rem;
+  padding-bottom: 1rem;
   margin-bottom: 2rem;
+  border-bottom: 0.1rem solid rgb(235 235 235);
 }
 @media (max-width: 758px) {
   .datosReservacion {

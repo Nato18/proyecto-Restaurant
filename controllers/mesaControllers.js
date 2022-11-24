@@ -159,7 +159,7 @@ const editarMesa = async (req, res) => {
   const { _token } = req.cookies;
   const { id } = req.params;
   const Reserva = await reserva.findByPk(id, {
-    include: [{ model: hora, as: "hora" }],
+    include: [{ model: hora, as: "hora" },{model: usuario, as: "usuario"}],
   });
   const [estados] = await Promise.all([estado.findAll()]);
   const [mesas] = await Promise.all([mesa.findAll()]);

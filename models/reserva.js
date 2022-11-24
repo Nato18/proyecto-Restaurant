@@ -18,6 +18,7 @@ const reserva = db.define("reserva", {
   monto: DataTypes.INTEGER,
   codigo: DataTypes.TEXT,
   finalizado: DataTypes.BOOLEAN,
+  reservacionRealizada: DataTypes.DATEONLY
 });
 
 export default reserva;

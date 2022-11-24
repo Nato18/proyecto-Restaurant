@@ -1,6 +1,7 @@
 import { reserva, hora, categoria, producto, estado } from "../models/index.js";
-import { Sequelize } from "sequelize";
+import { DATE, Sequelize } from "sequelize";
 import { check, validationResult } from "express-validator";
+// import { now } from "sequelize/types/utils.js";
 
 const hacerReserva = async (req, res) => {
   const { _token } = req.cookies;
@@ -46,7 +47,13 @@ const guardarReserva = async (req, res) => {
 
   const { fecha, hora: horaId, personas, comida } = req.body;
   const { id: usuarioId } = req.usuario;
-
+  //Fecha
+  let today = new Date();
+  let year = today.getFullYear();
+  let mes = today.getMonth() + 1;
+  let dia = today.getDate();
+  let Fecha = year + "-" + mes + "-" + dia;
+  console.log(fecha);
   const letrasyNumeros = "abcdefghijklmnopqrstuvwxyz0123456789";
   let generarCodigo = "";
   for (let i = 0; i < 5; i++) {
@@ -63,6 +70,7 @@ const guardarReserva = async (req, res) => {
       usuarioId,
       monto: 0,
       codigo: generarCodigo,
+      reservacionRealizada: Fecha,
     });
 
     const { id } = reservaGuardada;
@@ -187,7 +195,7 @@ const verReserva = async (req, res) => {
     pagina: "Reservaciones Realizadas",
     _token,
     reservas,
-    user:req.usuario,
+    user: req.usuario,
     nombre: req.usuario.nombre,
     mostrar: true,
   });

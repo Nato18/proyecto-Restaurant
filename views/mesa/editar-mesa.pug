@@ -23,7 +23,22 @@ block opciones_moderador
                     span.spanDatoReserva= `Sin Codigo`
                 else
                     span.spanDatoReserva= `${datos.codigo}`
-        
+
+    p.tituloCliente Cliente
+
+    div.datosCliente
+        div 
+            p.datoReserva Nombre: 
+                span.spanDatoReserva= `${datos.usuario.nombre}`
+        div
+            p.datoReserva Numero de Telefono: 
+                span.spanDatoReserva= `${datos.usuario.telefono}`
+
+        div 
+            p.datoReserva Reservacion realizada el: 
+                span.spanDatoReserva= `${datos.reservacionRealizada}`
+
+
     if errores
         div.erroresEditarMesa
             each error in errores
