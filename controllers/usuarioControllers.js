@@ -8,7 +8,7 @@ import { emailRegistro, emailOlvidePassword } from "../helpers/emails.js";
 
 const formulariologin = (req, res) => {
   res.clearCookie("_token").status(200).render("auth/login", {
-    pagina: "Iniciar Sesion",
+    pagina: "Iniciar Sesión",
     csrfToken: req.csrfToken(),
   });
 };
