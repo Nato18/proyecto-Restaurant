@@ -1,7 +1,6 @@
 import { reserva, hora, categoria, producto, estado } from "../models/index.js";
 import { DATE, Sequelize } from "sequelize";
 import { check, validationResult } from "express-validator";
-// import { now } from "sequelize/types/utils.js";
 
 const hacerReserva = async (req, res) => {
   const { _token } = req.cookies;
