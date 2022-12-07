@@ -238,7 +238,7 @@ const buscador = async (req, res) => {
   });
 
   res.render("menu/buscador", {
-    pagina: "Resultado de Busqueda",
+    pagina: "Resultado de Búsqueda",
     productos,
     _token,
     csrfToken: req.csrfToken(),

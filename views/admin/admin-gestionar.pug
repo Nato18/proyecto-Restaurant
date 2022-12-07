@@ -9,14 +9,14 @@ block opciones_moderador
         form(action="/personal/personal-buscador" method="POST" )
             input(type="hidden" name="_csrf" value= csrfToken)
             div.busqueda
-                label.labelLogins(for="termino") Busqueda 
+                label.labelLogins(for="termino") Búsqueda 
                 input.inputLogins(type="text" id="termino" name="termino" placeholder="Buscar")
                 input.btnOpcion(type="submit" value="Buscar")
 
     div.etiquetasAdmin
         p Nombre Completo
-        p.ocultarCelu Numero de Telefono
-        p Correo Electronico
+        p.ocultarCelu Numero de Teléfono
+        p Correo Electrónico
         p.ocultarCelu Opciones
     div.datosAdmins
         if administradores.length

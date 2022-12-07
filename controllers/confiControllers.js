@@ -22,11 +22,11 @@ const guardarCambios = async (req, res) => {
     .run(req);
   await check("email")
     .isEmail()
-    .withMessage("El Correo Electronico no es valido")
+    .withMessage("El Correo Electrónico no es valido")
     .run(req);
   await check("telefono")
     .isLength({ min: 8, max: 8 })
-    .withMessage("El telefono no es de 8 numeros")
+    .withMessage("El teléfono no es de 8 números")
     .run(req);
   let resultado = validationResult(req);
 
@@ -37,7 +37,7 @@ const guardarCambios = async (req, res) => {
     //Errores
     return res.render("configurar/configurar-cuenta", {
       nombre: usuario.nombre,
-      pagina: "Configuracion de cuenta",
+      pagina: "Configuración de cuenta",
       mostrar: true,
       user: usuario,
       _token,

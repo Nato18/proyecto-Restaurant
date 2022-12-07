@@ -11,7 +11,6 @@ const verinicio = (req, res) => {
 const quienesSomos = (req, res) => {
   const { _token } = req.cookies;
   res.render("pagina/quienes-somos", {
-    hola: "holaaaaa",
     pagina: "Quienes Somos",
     _token,
   });
@@ -43,7 +42,7 @@ const categoriaMenu = async (req, res) => {
 const ubicacionContacto = (req, res) => {
   const { _token } = req.cookies;
   res.render("pagina/ubicacion-contacto", {
-    pagina: "Ubicacion y Contacto",
+    pagina: "Ubicación y Contacto",
     _token,
   });
 };

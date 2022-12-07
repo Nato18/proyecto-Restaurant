@@ -49,12 +49,12 @@ const crearAdmin = async (req, res) => {
 
   await check("email")
     .isEmail()
-    .withMessage("El Correo Electronico no es valido")
+    .withMessage("El Correo Electrónico no es valido")
     .run(req);
 
   await check("telefono")
     .isLength({ min: 8, max: 8 })
-    .withMessage("El Telefono no es Valido")
+    .withMessage("El Teléfono no es Valido")
     .run(req);
 
   await check("contrasena")
@@ -180,7 +180,7 @@ const buscador = async (req, res) => {
   });
 
   res.render("admin/admin-buscador", {
-    pagina: "Resultado de Busqueda",
+    pagina: "Resultado de Búsqueda",
     _token,
     csrfToken: req.csrfToken(),
     mostrar: true,

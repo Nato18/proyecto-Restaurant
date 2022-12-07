@@ -25,10 +25,10 @@ const guardarReserva = async (req, res) => {
     .notEmpty()
     .withMessage("El numero de personas es obligatoria")
     .run(req);
-  await check("comida")
-    .notEmpty()
-    .withMessage("Selecciona una opcion para la reserva de comida")
-    .run(req);
+  // await check("comida")
+  //   .notEmpty()
+  //   .withMessage("Selecciona una opcion para la reserva de comida")
+  //   .run(req);
   let resultado = validationResult(req);
   if (!resultado.isEmpty()) {
     const { _token } = req.cookies;
@@ -44,7 +44,8 @@ const guardarReserva = async (req, res) => {
     });
   }
 
-  const { fecha, hora: horaId, personas, comida } = req.body;
+  // const { fecha, hora: horaId, personas, comida } = req.body;
+  const { fecha, hora: horaId, personas } = req.body;
   const { id: usuarioId } = req.usuario;
   //Fecha
   let today = new Date();
@@ -52,7 +53,6 @@ const guardarReserva = async (req, res) => {
   let mes = today.getMonth() + 1;
   let dia = today.getDate();
   let Fecha = year + "-" + mes + "-" + dia;
-  console.log(fecha);
   const letrasyNumeros = "abcdefghijklmnopqrstuvwxyz0123456789";
   let generarCodigo = "";
   for (let i = 0; i < 5; i++) {
@@ -65,19 +65,21 @@ const guardarReserva = async (req, res) => {
       fecha,
       horaId,
       personas,
-      comida,
+      // comida,
       usuarioId,
-      monto: 0,
+      // monto: 0,
+      tipo: "Reservacion",
       codigo: generarCodigo,
-      reservacionRealizada: Fecha,
+      Realizado: Fecha,
     });
 
     const { id } = reservaGuardada;
-    if (comida == "si") {
-      res.redirect(`/reserva/reservar-comida/${id}`);
-    } else {
-      res.redirect(`/reserva/vista-previa/${id}`);
-    }
+    res.redirect(`/reserva/vista-previa/${id}`);
+    // if (comida == "si") {
+    //   res.redirect(`/reserva/reservar-comida/${id}`);
+    // } else {
+    //   res.redirect(`/reserva/vista-previa/${id}`);
+    // }
   } catch (error) {
     console.log(error);
   }
@@ -125,7 +127,7 @@ const vistaPrevia = async (req, res) => {
 
   if (Reserva.reservaComida == null) {
     res.render("reserva/vista-previa", {
-      pagina: "Vista Previa de Reservacion",
+      pagina: "Vista Previa de Reservación",
       datos: Reserva,
       _token,
       csrfToken: req.csrfToken(),
@@ -140,7 +142,7 @@ const vistaPrevia = async (req, res) => {
     });
 
     res.render("reserva/vista-previa", {
-      pagina: "Vista Previa de Reservacion",
+      pagina: "Vista Previa de Reservación",
       datos: Reserva,
       _token,
       productos,
@@ -157,7 +159,7 @@ const reservaAceptada = async (req, res) => {
   Reserva.set({ finalizado: true });
   await Reserva.save();
   res.render("reserva/reserva-aceptada", {
-    pagina: "Reservacion Aceptada",
+    pagina: "Reservación Aceptada",
     _token,
   });
 };
@@ -169,7 +171,7 @@ const reservaCancelada = async (req, res) => {
     const Reserva = await reserva.findByPk(id);
     await Reserva.destroy();
     res.render("reserva/reserva-cancelada", {
-      pagina: "Reservacion Cancelada",
+      pagina: "Reservación Cancelada",
       _token,
     });
   } catch (error) {
@@ -212,7 +214,7 @@ const verMas = async (req, res) => {
 
   if (Reserva.reservaComida == null) {
     res.render("reserva/ver-mas", {
-      pagina: "Vista Previa de Reservacion",
+      pagina: "Vista Previa de Reservación",
       datos: Reserva,
       _token,
       csrfToken: req.csrfToken(),
@@ -227,7 +229,7 @@ const verMas = async (req, res) => {
     });
 
     res.render("reserva/ver-mas", {
-      pagina: "Vista Previa de Reservacion",
+      pagina: "Vista Previa de Reservación",
       datos: Reserva,
       _token,
       productos,

@@ -13,30 +13,32 @@ block opciones_moderador
         div 
             p.datoReserva Personas: 
                 span.spanDatoReserva= `${datos.personas}`
-        div
-            p.datoReserva Comida Reservada: 
-                span.spanDatoReserva= `${datos.comida}`
 
         div.estadosCambios
-            p.datoReserva Codigo: 
+            p.datoReserva Código: 
                 if datos.estadoId == null || datos.estadoId == 2
-                    span.spanDatoReserva= `Sin Codigo`
+                    span.spanDatoReserva= `Sin Código`
                 else
                     span.spanDatoReserva= `${datos.codigo}`
-
-    p.tituloCliente Cliente
-
-    div.datosCliente
-        div 
-            p.datoReserva Nombre: 
-                span.spanDatoReserva= `${datos.usuario.nombre}`
         div
-            p.datoReserva Numero de Telefono: 
-                span.spanDatoReserva= `${datos.usuario.telefono}`
+            p.datoReserva Tipo: 
+                span.spanDatoReserva= `${datos.tipo}`
 
-        div 
-            p.datoReserva Reservacion realizada el: 
-                span.spanDatoReserva= `${datos.reservacionRealizada}`
+    if datos.tipo == "Reservacion"
+
+        p.tituloCliente Cliente
+
+        div.datosCliente
+            div 
+                p.datoReserva Nombre: 
+                    span.spanDatoReserva= `${datos.usuario.nombre}`
+            div
+                p.datoReserva Numero de Teléfono: 
+                    span.spanDatoReserva= `${datos.usuario.telefono}`
+
+            div 
+                p.datoReserva Reservación realizada el: 
+                    span.spanDatoReserva= `${datos.Realizado}`
 
 
     if errores
@@ -62,7 +64,7 @@ block opciones_moderador
                             option(value=mesa.id selected= datos.mesaId ? datos.mesaId == mesa.id ? true : false : null)= mesa.numero
 
                 div.opcionesCelu
-                    label(for="horaFinal") Hora de Finalizacion: 
+                    label(for="horaFinal") Hora de Finalización: 
                     select.inputLogins#horaFinal(name="horaFinal") 
                         option(value="") - Seleccione - 
                         each horaFinal in horasFinal
@@ -75,37 +77,5 @@ block opciones_moderador
                 //- input(type="hidden", name="_csrf" value= csrfToken)
                 input(type="hidden" name="fecha" value=`${datos.fecha}`)
                 input.btnOpcion(type="submit", value="Ver Mesas" formtarget="_blank") 
-    if pedidoComida
-        div.tituloCategoria
-            p Comida Reservada
-        if productos.length
-            div.datosReservacion
-                p.datoReserva.tamLetra Total:
-                    span.spanDatoReserva= `$${datos.monto}`
-            div.contenedorMesa
-                each producto in productos
-                    - var total = 0
-                    div.contenedorGestionProducto
-                        p.categoriaProducto= producto.categoria.nombre
-                        div.gestionProductoTextos
-                            p.tituloProducto= producto.titulo
-                            p.descripcionProducto= producto.descripcion
-                            p.precioProducto $ #{producto.precio} 
-
-                        div
-                            img.imgProducto(class="vistaImagen" src=`/uploads/${producto.imagen}`, alt=`Imagen producto ${producto.titulo}`)
-                        div     
-                            each comida in comidas
-                                if comida == producto.titulo
-                                    - total ++;
-                            p.cantidad x #{total}
-                        
-        
-            
-        else
-            p No hay Producto
-    else
-        div.tituloCategoria
-            p No Reservo Comida
 
     

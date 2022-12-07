@@ -8,11 +8,16 @@ import {
   categoria,
   horaFinal,
 } from "../models/index.js";
-import { mesaConfirmada, mesaRechazada } from "../helpers/emails.js";
+import {
+  mesaCancelada,
+  mesaConfirmada,
+  mesaRechazada,
+} from "../helpers/emails.js";
 import { check, validationResult } from "express-validator";
 const gestionarMesa = async (req, res) => {
   const { _token } = req.cookies;
-  const { filtro, fecha: filtroFecha } = req.query;
+  const { filtro, fecha: filtroFecha, tipo: filtroTipo } = req.query;
+
   const [estados] = await Promise.all([estado.findAll()]);
   if (filtro == 7) {
     const [reservas] = await Promise.all([
@@ -27,7 +32,7 @@ const gestionarMesa = async (req, res) => {
     ]);
     const [estados] = await Promise.all([estado.findAll()]);
     res.render("mesa/mesa-gestionar", {
-      pagina: "Gestionar Mesas",
+      pagina: "Gestionar Clientes",
       mostrar: true,
       user: req.usuario,
       nombre: req.usuario.nombre,
@@ -40,7 +45,9 @@ const gestionarMesa = async (req, res) => {
     filtro != null &&
     filtro != 0 &&
     filtroFecha != 0 &&
-    filtroFecha != null
+    filtroFecha != null &&
+    filtroTipo != null &&
+    filtroTipo != 0
   ) {
     const [reservas] = await Promise.all([
       reserva.findAll({
@@ -48,13 +55,18 @@ const gestionarMesa = async (req, res) => {
           { model: hora, as: "hora" },
           { model: estado, as: "estado" },
         ],
-        where: { finalizado: true, estadoId: filtro, fecha: filtroFecha },
+        where: {
+          finalizado: true,
+          estadoId: filtro,
+          fecha: filtroFecha,
+          tipo: filtroTipo,
+        },
         order: [["id", "DESC"]],
       }),
     ]);
     const [estados] = await Promise.all([estado.findAll()]);
     res.render("mesa/mesa-gestionar", {
-      pagina: "Gestionar Mesas",
+      pagina: "Gestionar Clientes",
       mostrar: true,
       user: req.usuario,
       nombre: req.usuario.nombre,
@@ -76,7 +88,7 @@ const gestionarMesa = async (req, res) => {
     ]);
     const [estados] = await Promise.all([estado.findAll()]);
     res.render("mesa/mesa-gestionar", {
-      pagina: "Gestionar Mesas",
+      pagina: "Gestionar Clientes",
       mostrar: true,
       user: req.usuario,
       nombre: req.usuario.nombre,
@@ -86,8 +98,8 @@ const gestionarMesa = async (req, res) => {
       csrfToken: req.csrfToken(),
     });
   } else if (
-    (filtro == null && filtroFecha == null) ||
-    (filtro == 0 && filtroFecha == 0)
+    (filtro == null && filtroFecha == null && filtroTipo == null) ||
+    (filtro == 0 && filtroFecha == 0 && filtroTipo == 0)
   ) {
     const [reservas] = await Promise.all([
       reserva.findAll({
@@ -100,7 +112,7 @@ const gestionarMesa = async (req, res) => {
       }),
     ]);
     res.render("mesa/mesa-gestionar", {
-      pagina: "Gestionar Mesas",
+      pagina: "Gestionar Clientes",
       mostrar: true,
       user: req.usuario,
       nombre: req.usuario.nombre,
@@ -109,7 +121,7 @@ const gestionarMesa = async (req, res) => {
       estados,
       csrfToken: req.csrfToken(),
     });
-  } else if (filtro == 0 && filtroFecha != null) {
+  } else if (filtro == 0 && filtroFecha != null && filtroTipo == 0) {
     const [reservas] = await Promise.all([
       reserva.findAll({
         include: [
@@ -121,7 +133,7 @@ const gestionarMesa = async (req, res) => {
       }),
     ]);
     res.render("mesa/mesa-gestionar", {
-      pagina: "Gestionar Mesas",
+      pagina: "Gestionar Clientes",
       mostrar: true,
       user: req.usuario,
       nombre: req.usuario.nombre,
@@ -143,7 +155,29 @@ const gestionarMesa = async (req, res) => {
     ]);
     const [estados] = await Promise.all([estado.findAll()]);
     res.render("mesa/mesa-gestionar", {
-      pagina: "Gestionar Mesas",
+      pagina: "Gestionar Clientes",
+      mostrar: true,
+      user: req.usuario,
+      nombre: req.usuario.nombre,
+      reservas,
+      _token,
+      estados,
+      csrfToken: req.csrfToken(),
+    });
+  } else if (filtroTipo != null) {
+    const [reservas] = await Promise.all([
+      reserva.findAll({
+        include: [
+          { model: hora, as: "hora" },
+          { model: estado, as: "estado" },
+        ],
+        where: { finalizado: true, tipo: filtroTipo },
+        order: [["id", "DESC"]],
+      }),
+    ]);
+    const [estados] = await Promise.all([estado.findAll()]);
+    res.render("mesa/mesa-gestionar", {
+      pagina: "Gestionar Clientes",
       mostrar: true,
       user: req.usuario,
       nombre: req.usuario.nombre,
@@ -159,14 +193,17 @@ const editarMesa = async (req, res) => {
   const { _token } = req.cookies;
   const { id } = req.params;
   const Reserva = await reserva.findByPk(id, {
-    include: [{ model: hora, as: "hora" },{model: usuario, as: "usuario"}],
+    include: [
+      { model: hora, as: "hora" },
+      { model: usuario, as: "usuario" },
+    ],
   });
   const [estados] = await Promise.all([estado.findAll()]);
   const [mesas] = await Promise.all([mesa.findAll()]);
   const [horasFinal] = await Promise.all([horaFinal.findAll()]);
   if (Reserva.reservaComida == null) {
     res.render("mesa/editar-mesa", {
-      pagina: "Reservacion",
+      pagina: "Informacion",
       datos: Reserva,
       estados,
       mesas,
@@ -183,7 +220,7 @@ const editarMesa = async (req, res) => {
       include: [{ model: categoria, as: "categoria" }],
     });
     res.render("mesa/editar-mesa", {
-      pagina: "Reservacion",
+      pagina: "Informacion",
       datos: Reserva,
       estados,
       mesas,
@@ -209,7 +246,6 @@ const guardarCambios = async (req, res) => {
 
   if (!resultado.isEmpty()) {
     if (resultado.errors[0].param == "mesa" && estadoId == "2") {
-      console.log("entro");
       const { id } = req.params;
       const Reserva = await reserva.findByPk(id, {
         include: [
@@ -217,7 +253,7 @@ const guardarCambios = async (req, res) => {
           { model: hora, as: "hora" },
         ],
       });
-      Reserva.set({ estadoId });
+      Reserva.set({ estadoId, mesaId: null });
       await Reserva.save();
       mesaRechazada({
         nombre: Reserva.usuario.nombre,
@@ -226,20 +262,24 @@ const guardarCambios = async (req, res) => {
         hora: Reserva.hora.hora,
         personas: Reserva.personas,
       });
-      await Reserva.destroy();
-      res.redirect(`/mesa/gestionar-mesa`);
+      // await Reserva.destroy();
+      // res.redirect(`/mesa/gestionar-mesa`);
+      res.redirect(`/mesa/editar/${id}`);
     } else {
       const { _token } = req.cookies;
       const { id } = req.params;
       const Reserva = await reserva.findByPk(id, {
-        include: [{ model: hora, as: "hora" }],
+        include: [
+          { model: hora, as: "hora" },
+          { model: usuario, as: "usuario" },
+        ],
       });
       const [estados] = await Promise.all([estado.findAll()]);
       const [mesas] = await Promise.all([mesa.findAll()]);
       const [horasFinal] = await Promise.all([horaFinal.findAll()]);
       if (Reserva.reservaComida == null) {
         return res.render("mesa/editar-mesa", {
-          pagina: "Reservacion",
+          pagina: "Reservación",
           datos: Reserva,
           estados,
           mesas,
@@ -258,7 +298,7 @@ const guardarCambios = async (req, res) => {
           include: [{ model: categoria, as: "categoria" }],
         });
         return res.render("mesa/editar-mesa", {
-          pagina: "Reservacion",
+          pagina: "Reservación",
           datos: Reserva,
           estados,
           mesas,
@@ -301,6 +341,16 @@ const guardarCambios = async (req, res) => {
       });
       res.redirect(`/mesa/editar/${id}`);
     }
+    if (estadoId == 3) {
+      mesaCancelada({
+        nombre: Reserva.usuario.nombre,
+        email: Reserva.usuario.email,
+        fecha: Reserva.fecha,
+        hora: Reserva.hora.hora,
+        personas: Reserva.personas,
+      });
+      res.redirect(`/mesa/editar/${id}`);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -327,7 +377,7 @@ const verMesas = async (req, res) => {
       }),
     ]);
     return res.render("mesa/mesa-gestionar", {
-      pagina: "Gestionar Mesas",
+      pagina: "Gestionar Clientes",
       mostrar: true,
       user: req.usuario,
       nombre: req.usuario.nombre,
@@ -378,8 +428,9 @@ const crearReserva = async (req, res) => {
   const { _token } = req.cookies;
   const [horas] = await Promise.all([hora.findAll()]);
   const [mesas] = await Promise.all([mesa.findAll()]);
+
   res.render("mesa/crear-reserva", {
-    pagina: "Crear Reserva",
+    pagina: "Ingresar Cliente",
     horas,
     mesas,
     datos: {},
@@ -389,10 +440,10 @@ const crearReserva = async (req, res) => {
   });
 };
 const guardarReserva = async (req, res) => {
-  await check("fecha")
-    .notEmpty()
-    .withMessage("La fecha es obligatoria")
-    .run(req);
+  // await check("fecha")
+  //   .notEmpty()
+  //   .withMessage("La fecha es obligatoria")
+  //   .run(req);
   await check("hora").notEmpty().withMessage("La hora es obligatoria").run(req);
   await check("personas")
     .notEmpty()
@@ -405,7 +456,7 @@ const guardarReserva = async (req, res) => {
     const [horas] = await Promise.all([hora.findAll()]);
     const [mesas] = await Promise.all([mesa.findAll()]);
     return res.render("mesa/crear-reserva", {
-      pagina: "Crear Reserva",
+      pagina: "Ingresar Cliente",
       horas,
       mesas,
       datos: {},
@@ -415,20 +466,26 @@ const guardarReserva = async (req, res) => {
       user: req.usuario,
     });
   }
-
-  const { fecha, hora: horaId, personas, mesa: mesaId } = req.body;
+  let today = new Date();
+  let year = today.getFullYear();
+  let mes = today.getMonth() + 1;
+  let dia = today.getDate();
+  let fecha = year + "-" + mes + "-" + dia;
+  const { hora: horaId, personas, mesa: mesaId } = req.body;
   const reservaGuardada = await reserva.create({
     fecha,
     horaId,
     personas,
     mesaId,
-    comida: "no",
+    tipo: "Presencial",
+    codigo: "Sin código",
     finalizado: true,
     estadoId: 4,
   });
   reservaGuardada.save();
   res.redirect("/mesa/gestionar-mesa");
 };
+
 const buscador = async (req, res) => {
   const { termino } = req.body;
   const { _token } = req.cookies;
@@ -451,7 +508,7 @@ const buscador = async (req, res) => {
   });
 
   res.render("mesa/buscador", {
-    pagina: "Resultado de Busqueda",
+    pagina: "Resultado de Búsqueda",
     reservas,
     _token,
     csrfToken: req.csrfToken(),

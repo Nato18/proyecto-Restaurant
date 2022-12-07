@@ -7,13 +7,13 @@ block opciones_moderador
         form(action="/menu/buscador" method="POST" )
             input(type="hidden" name="_csrf" value= csrfToken)
             div.busqueda
-                label.labelLogins(for="termino") Busqueda:
+                label.labelLogins(for="termino") Búsqueda:
                 input.inputLogins(type="text" id="termino" name="termino" placeholder="Buscar Producto")
                 input.btnOpcion(type="submit" value="Buscar")
     form(action="/menu/gestionar_menu" method="GET")
         div.filtrosBusqueda
             div.filtroEstados
-                label.labelLogins(for="filtro") Filtrar por Categoria:  
+                label.labelLogins(for="filtro") Filtrar por Categoría:  
                 select.inputReserva#filtro(name="filtro")
                     option(value="") - Sin Filtro -
                     each categoria in categorias
@@ -22,9 +22,7 @@ block opciones_moderador
     
     if productos.length
         div
-
                 each producto in productos
-                    
                         div.contenedorGestionProducto
                             p.categoriaProducto= producto.categoria.nombre
                             div.gestionProductoTextos
@@ -42,7 +40,7 @@ block opciones_moderador
                             div.opcionesProducto
                                 form(method="POST" action=`/menu/cambiarStock/${producto.id}`)
                                     input(type="hidden", name="_csrf" value= csrfToken)
-                                    input.btnOpcion(type="submit", value= producto.stock ? "Deshabilitar" : "Habilitar")
+                                    input.btnOpcion(type="submit", value= producto.stock ? "Deshabilitar" : "Habilitar", class=`${producto.stock == 1 ? 'colorNoLlegada' : 'colorAceptado'}`)
     else
         p No hay Productos
 

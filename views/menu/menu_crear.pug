@@ -10,7 +10,7 @@ block opciones_moderador
     form(method="POST" action="/menu/menu_crear") 
         input(type="hidden", name="_csrf" value= csrfToken)
         div.divLogins
-            label.labelLogins(for="categoria") Categoria
+            label.labelLogins(for="categoria") Categoría
             select.inputLogins#categoria(name="categoria") 
                 option(value="") - Seleccione - 
                 each categoria in categorias
@@ -19,8 +19,8 @@ block opciones_moderador
             label.labelLogins(for="titulo") Nombre 
             input.inputLogins(type="text" placeholder="Nombre del Producto" name="titulo", value= datos.titulo ? datos.titulo : "") 
         div.divLogins
-            label.labelLogins(for="descripcion") Descripcion 
-            textarea#descripcion.inputLogins(name="descripcion", cols="30", rows="10", placeholder="Descripcion de la Propiedad")= datos.descripcion ? datos.descripcion : ""  
+            label.labelLogins(for="descripcion") Descripción 
+            textarea#descripcion.inputLogins(name="descripcion", cols="30", rows="10", placeholder="Descripción del Producto")= datos.descripcion ? datos.descripcion : ""  
         div.divLogins
             label.labelLogins(for="precio") Precio
             input.inputLogins(type="number", placeholder="Precio del Producto",name="precio" value = datos.precio ? datos.precio : "") 

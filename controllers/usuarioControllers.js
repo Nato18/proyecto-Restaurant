@@ -29,7 +29,7 @@ const autenticar = async (req, res) => {
   if (!resultado.isEmpty()) {
     //Errores
     return res.render("auth/login", {
-      pagina: "Iniciar Sesion",
+      pagina: "Iniciar Sesión",
       csrfToken: req.csrfToken(),
       errores: resultado.array(),
     });
@@ -41,7 +41,7 @@ const autenticar = async (req, res) => {
   const usuario = await Usuario.findOne({ where: { email } });
   if (!usuario) {
     return res.render("auth/login", {
-      pagina: "Iniciar Sesion",
+      pagina: "Iniciar Sesión",
       csrfToken: req.csrfToken(),
       errores: [{ msg: "El Usuario no existe" }],
     });
@@ -50,7 +50,7 @@ const autenticar = async (req, res) => {
   // Verificar si el usuario esta confirmado
   if (!usuario.confirmado) {
     return res.render("auth/login", {
-      pagina: "Iniciar Sesion",
+      pagina: "Iniciar Sesión",
       csrfToken: req.csrfToken(),
       errores: [{ msg: "La Cuenta no ha sido confirmado" }],
     });
@@ -59,7 +59,7 @@ const autenticar = async (req, res) => {
   // Verificar si la contraseña no es correcta
   if (!usuario.verificarContraseña(contrasena)) {
     return res.render("auth/login", {
-      pagina: "Iniciar Sesion",
+      pagina: "Iniciar Sesión",
       csrfToken: req.csrfToken(),
       errores: [{ msg: "La Contraseña es incorrecta" }],
     });
@@ -92,11 +92,11 @@ const registrar = async (req, res) => {
     .run(req);
   await check("email")
     .isEmail()
-    .withMessage("El Correo Electronico no es valido")
+    .withMessage("El Correo Electrónico no es valido")
     .run(req);
   await check("telefono")
     .isLength({ min: 8, max: 8 })
-    .withMessage("El Telefono no es de 8 numeros")
+    .withMessage("El Teléfono no es de 8 números")
     .run(req);
   await check("contrasena")
     .isLength({ min: 5 })
@@ -159,7 +159,7 @@ const registrar = async (req, res) => {
   res.render("templates/mensaje", {
     pagina: "Cuenta Creada Correctamente",
     mensaje:
-      "Te hemos enviado un Email de Confirmacion, haz click en el enlace del Email",
+      "Te hemos enviado un Email de Confirmación, haz click en el enlace del Email",
   });
 };
 
@@ -199,7 +199,7 @@ const formularioOlvidePassword = (req, res) => {
 const resetPassword = async (req, res) => {
   await check("email")
     .isEmail()
-    .withMessage("El Correo Electronico no es valido")
+    .withMessage("El Correo Electrónico no es valido")
     .run(req);
   let resultado = validationResult(req);
 
@@ -221,7 +221,7 @@ const resetPassword = async (req, res) => {
     return res.render("auth/olvide-password", {
       pagina: "Recupera Tu acceso",
       csrfToken: req.csrfToken(),
-      errores: [{ msg: "El email no pertenece a ningun usuario" }],
+      errores: [{ msg: "El email no pertenece a ningún usuario" }],
     });
   }
 
@@ -237,7 +237,7 @@ const resetPassword = async (req, res) => {
   });
   //Mensaje
   res.render("templates/mensaje", {
-    pagina: "Reestablece tu Password",
+    pagina: "Restablece tu Contraseña",
     mensaje: "Hemos enviado un email con los instrucciones",
   });
 };
@@ -248,8 +248,8 @@ const comprobarToken = async (req, res) => {
 
   if (!usuario) {
     return res.render("auth/confirmar", {
-      pagina: "Reestablece tu Contraseña",
-      mensaje: "Hubo un error al validar tu informacion, intenta de nuevo",
+      pagina: "Restablece tu Contraseña",
+      mensaje: "Hubo un error al validar tu información, intenta de nuevo",
       error: true,
     });
   }
@@ -277,7 +277,7 @@ const nuevoPassword = async (req, res) => {
   if (!resultado.isEmpty()) {
     //Errores
     return res.render("auth/reset-password", {
-      pagina: "Reestablece tu contraseña",
+      pagina: "Restablece tu contraseña",
       csrfToken: req.csrfToken(),
       errores: resultado.array(),
     });
@@ -297,7 +297,7 @@ const nuevoPassword = async (req, res) => {
   await usuario.save();
 
   res.render("auth/confirmar", {
-    pagina: "Contraseña Reestablecida",
+    pagina: "Contraseña Restablecida",
     mensaje: "La Contraseña se guardó correctamente",
   });
 };

@@ -8,13 +8,11 @@ block contenido
                 div.errores
                     each error in errores
                         p.error= error.msg
-            form( method="POST" action="/mesa/crear-reserva")
+            form( method="POST" action="/mesa/cliente-presencial")
                 input(type="hidden", name="_csrf" value= csrfToken)
-                div.divLogins
-                    label.labelLogins(for="fecha") Fecha de Reservacion 
-                    input.inputReserva(type="date" name="fecha" value= datos.fecha ? datos.fecha : '')  
+
                 div.divLogins 
-                    label.labelLogins.letraBlanca(for="hora") Hora de Reservacion
+                    label.labelLogins.letraBlanca(for="hora") Hora de Ingreso
                     select.inputReserva#hora(name="hora") 
                         option(value="") - Seleccione - 
                         each hora in horas
@@ -30,7 +28,7 @@ block contenido
                             option(value=mesa.id selected= datos.mesaId ? datos.mesaId == mesa.id ? true : false : null)= mesa.numero
                 div.btnsCrearReserva
                     
-                    input.btnOpcion(type="submit", value="Crear") 
+                    input.btnOpcion(type="submit", value="Ingresar") 
                     div 
                         a.btnOpcion(href="/mesa/gestionar-mesa") Volver 
         div

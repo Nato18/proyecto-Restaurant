@@ -7,7 +7,7 @@ block opciones_moderador
         form(action="/menu/buscador" method="POST" )
             input(type="hidden" name="_csrf" value= csrfToken)
             div.busqueda
-                label.labelLogins(for="termino") Busqueda: 
+                label.labelLogins(for="termino") Búsqueda: 
                 input.inputLogins(type="text" id="termino" name="termino" placeholder="Buscar Producto")
                 input.btnOpcion(type="submit" value="Buscar")
       

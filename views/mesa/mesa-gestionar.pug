@@ -2,8 +2,10 @@ extends ../layout/opciones_usuario
 
 block opciones_moderador
     h2.tituloCategoria= pagina
+    div.clientePresencial
     div.crearReserva
-        a.btnOpcion(href="/mesa/crear-reserva" class="link") Crear Reserva
+        a.btnOpcion(href="/mesa/cliente-presencial" class="link") Ingresar Cliente Presencial
+    br
     if errores
         div.erroresGestion
             each error in errores
@@ -13,24 +15,24 @@ block opciones_moderador
         div.btnMesa
             form(action="/mesa/ver-mesas" method="GET")
                 div.formVerMesa
-                    div 
-                        label.labelLogins(for="fecha") Fecha:  
-                        input#fecha.buscarCodigo(type="date", name="fecha") 
-                    input.btnOpcion(type="submit" value= "Ver Mesas")
+               
+                    label.labelLogins(for="fecha") Fecha:  
+                    input#fecha.buscarCodigo(type="date", name="fecha") 
+                    input.btnOpcion.btnVermesa(type="submit" value= "Ver Mesas")
 
         div.btnMesa
             form(action="/mesa/buscador" method="POST" )
                 input(type="hidden" name="_csrf" value= csrfToken)
                 div.busqueda
-                    label.labelLogins(for="termino") Busqueda:
-                    input.buscarCodigo(type="text" id="termino" name="termino" placeholder="Buscar reserva por codigo")
-                    input.btnOpcion(type="submit" value="Buscar")
+                    label.labelLogins(for="termino") Búsqueda:
+                    input.buscarCodigo(type="text" id="termino" name="termino" placeholder="Buscar reserva por código")
+                    input.btnOpcion.btnBusqueda(type="submit" value="Buscar")
 
         
         //- div.btnMesa
     form(action="/mesa/gestionar-mesa" method="GET")
         div.filtrosBusqueda
-            div.filtroEstados
+            div.filtro
                 label.labelLogins(for="filtro") Filtrar por Estado:  
                 select.inputReserva#filtro(name="filtro")
                     option(value="") - Sin Filtro -
@@ -38,18 +40,26 @@ block opciones_moderador
                     each estado in estados
                         option(value=estado.id)= estado.estado
             div
-                div.filtroFecha 
+                div.filtro 
                     label.labelLogins(for="fecha") Filtrar por Fecha:  
                     input#fecha.inputReserva(type="date", name="fecha") 
-            input.btnOpcion(type="submit" value= "Filtrar")
+            div
+                div.filtro 
+                    label.labelLogins(for="tipo") Filtrar por Tipo:  
+                    select.inputReserva#filtro(name="tipo")
+                        option(value="") - Sin Filtro -
+                        option(value="Presencial") Presencial
+                        option(value="Reservacion") Reservación  
+        div.margin0
+            input.btnOpcion.centrarTexto(type="submit" value= "Filtrar")
 
 
 
     div.etiquetasMesa
-        p Fecha de Reserva
-        p Hora de Reserva
+        p Fecha
+        p Hora
         p.ocultarCelu Personas
-        p.ocultarCelu Comida
+        p.ocultarCelu Tipo
         p Estado 
         p.ocultarCelu Mesa
         p Codigo
@@ -61,7 +71,7 @@ block opciones_moderador
                     p= reserva.fecha
                     p= reserva.hora.hora
                     p.ocultarCelu= reserva.personas
-                    p.ocultarCelu= reserva.comida
+                    p.ocultarCelu= reserva.tipo
                     if reserva.estado == null
                         p En Espera
                     else 
@@ -71,4 +81,4 @@ block opciones_moderador
                         p Sin codigo
                     else 
                         p= reserva.codigo
-                    a.btnOpcion(href=`/mesa/editar/${reserva.id}`) Editar
+                    a.btnOpcion(href=`/mesa/editar/${reserva.id}`, target="_blank") Editar

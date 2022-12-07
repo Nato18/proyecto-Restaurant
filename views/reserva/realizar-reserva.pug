@@ -16,11 +16,11 @@ block contenido
             form( method="POST" action="/reserva/realizar-reserva")
                 input(type="hidden", name="_csrf" value= csrfToken)
                 div.divLogins
-                    label.labelLogins.letraBlanca(for="fecha") Fecha de Reservacion 
+                    label.labelLogins.letraBlanca(for="fecha") Fecha de Reservación 
                     input.inputReserva(type="date" name="fecha" value= datos.fecha ? datos.fecha : '')  
                 div.divReserva
-                    p *Haz la reservacion con minimo 1 hora de antelacion
-                    label.labelLogins.letraBlanca(for="hora") Hora de Reservacion
+                    p * Haz la reservación con mínimo 1 hora de antelación
+                    label.labelLogins.letraBlanca(for="hora") Hora de Reservación
                     select.inputReserva#hora(name="hora") 
                         option(value="") - Seleccione - 
                         each hora in horas
@@ -28,14 +28,6 @@ block contenido
                 div.divLogins 
                     label.labelLogins.letraBlanca(for="personas") Numero de Personas 
                     input.inputReserva(type="number" name="personas" value= datos.personas ? datos.personas : '')
-                    p.labelLogins.marginReserva.letraBlanca ¿Desea Reservar comida?
-                div.btnsRadio
-                    div.btnsRadio 
-                        label.labelLogins.letraBlanca(for="si") Si
-                        input.btnRadio(type="radio" name="comida" id="si" value="si")  
-                    div.btnsRadio
-                        label.labelLogins.letraBlanca(for="no") No
-                        input.btnRadio(type="radio" name="comida" id="no" value="no") 
                 input.btnLogins.padding(type="submit" value="Continuar") 
         div
             img.imgLogin.imgReserva(src="../img/Login.jpg", alt="")

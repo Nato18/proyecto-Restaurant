@@ -5,16 +5,13 @@ header.header
         a(href="/") inicio
         a(href="/quienes-somos") Quienes Somos
         a(href="/ver-menu/1") Menu
-        a(href="/ubicacion-contacto") Ubicacion y Contacto
+        a(href="/ubicacion-contacto") Ubicación y Contacto
 
     div.sesion 
         a(href="/reserva/realizar-reserva").btnHeader.reserva Reservar Ahora
         if _token
             a(href="/opciones/opciones-usuario") Perfil
-            a(href="/auth/login") Cerrar Sesion 
-            //- form(action="/auth/cerrar-sesion" method="POST")
-            //-     input(type="hidden" name="_csrf" value=csrfToken)
-            //-     input(type="submit" value="Cerrar Sesion") 
+            a(href="/auth/login") Cerrar Sesión 
         else    
             a(href="/auth/login").btnHeader.iniciaSesion Iniciar Sesión
             a(href="/auth/registro") Registrarse

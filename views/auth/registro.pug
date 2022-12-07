@@ -18,13 +18,15 @@ block contenido
                     label.labelLogins.letraBlanca(for="nombre") Nombre Completo
                     input.inputLogins#nombre(placeholder="Renato Parraguez Rubilar", type="text", name="nombre" value= usuario ? usuario.nombre : '')
                 div.divLogins 
-                    label.labelLogins.letraBlanca(for="email") Correo Electronico
+                    label.labelLogins.letraBlanca(for="email") Correo Electrónico
                     input.inputLogins#email(placeholder="Correo_electronico@gmail.com", type="email", name="email" value= email ? usuario.email : '')
                 div.divLogins 
-                    label.labelLogins.letraBlanca(for="telefono") Telefono
+                    p * Ingresa 8 números 
+                    label.labelLogins.letraBlanca(for="telefono") Teléfono
                     input.inputLogins#telefono(placeholder="12345678", type="number", name="telefono" value = telefono ? usuario.telefono : "")                            
                 div.divContrasenas 
                     div.divLogins 
+                        p * La contraseña debe contener 5 caracteres mínimo
                         label.labelLogins.letraBlanca(for="contrasena") Contraseña
                         input.inputLogins#contrasena(placeholder="Contraseña", type="password", name="contrasena")                            
                     div.divLogins 
@@ -34,4 +36,4 @@ block contenido
                 input.btnLogins(type="submit", value="Crear Cuenta")
             div.div_aRegistro
                 a.aLogins.letraBlanca(href="/auth/login") ¿Ya estas registrado?
-                    span.spanLogins  Inicia Sesion 
+                    span.spanLogins  Inicia Sesión 

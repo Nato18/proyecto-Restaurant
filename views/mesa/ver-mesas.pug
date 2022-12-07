@@ -41,13 +41,21 @@ block opciones_moderador
                     div.gridHoras
                         each reserva in reservas
                             if reserva.mesaId == mesa.numero
-                                
-                                a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
-                                : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`) #{reserva.hora.hora} - 
-                                    if reserva.horaFinalId == null
-                                        span Activo
-                                    else 
-                                        span= reserva.horasfinal.horafinal
+                                if reserva.tipo == "Presencial"
+                                    a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
+                                    : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`) #{reserva.tipo} #{reserva.hora.hora} - 
+                                        if reserva.horaFinalId == null
+                                            span Activo
+                                        else 
+                                            span= reserva.horasfinal.horafinal
+                                else 
+                                    a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
+                                    : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`) #{reserva.tipo} #{reserva.hora.hora} - 
+                                        if reserva.horaFinalId == null
+                                            span Activo
+                                        else 
+                                            span= reserva.horasfinal.horafinal
+
         div.paginacion
             div 
                 p.mostrarCantidad Mostrando 

@@ -19,8 +19,8 @@ block opciones_moderador
             form(action="/mesa/buscador" method="POST" )
                 input(type="hidden" name="_csrf" value= csrfToken)
                 div.busqueda
-                    label.labelLogins(for="termino") Busqueda:
-                    input.buscarCodigo(type="text" id="termino" name="termino" placeholder="Buscar reserva por codigo")
+                    label.labelLogins(for="termino") Búsqueda:
+                    input.buscarCodigo(type="text" id="termino" name="termino" placeholder="Buscar reserva por código")
                     input.btnOpcion(type="submit" value="Buscar")
 
         //- div.btnMesa
@@ -45,7 +45,7 @@ block opciones_moderador
         p.ocultarCelu Comida
         p Estado 
         p.ocultarCelu Mesa
-        p Codigo
+        p Código
         p.ocultarCelu
     div.datosReservas
         if reservas.length

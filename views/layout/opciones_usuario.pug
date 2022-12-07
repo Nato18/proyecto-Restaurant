@@ -8,12 +8,12 @@ block contenido
                 div.opciones_mode
                     a(href="/reserva/ver-reservas" class="link opcion_mode") Ver reservaciones 
                     if user.id == 1
-                        a(href="/mesa/gestionar-mesa" class="link opcion_mode") Gestionar Mesas
+                        a(href="/mesa/gestionar-mesa" class="link opcion_mode") Gestionar Clientes
                         a(href="/menu/gestionar_menu" class="link opcion_mode") Gestionar Menu
                         a(href="/personal/personal-gestionar" class="link opcion_mode") Gestionar Personal
                     if user.admin == true
                         a(href="/mesa/gestionar-mesa" class="link opcion_mode") Gestionar Mesas
-                    a(href="/configurar/" class="link opcion_mode") Configuracion de la cuenta
+                    a(href="/configurar/" class="link opcion_mode") Configuración de la cuenta
 
         div.contenedorCelu
             block opciones_moderador

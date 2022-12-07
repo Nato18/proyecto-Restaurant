@@ -4,6 +4,7 @@ import {
   verMesas,
   crearReserva,
   guardarReserva,
+
   editarMesa,
   guardarCambios,
   buscador,
@@ -15,8 +16,8 @@ router.get("/gestionar-mesa", protegerRutaAdmin, gestionarMesa);
 // router.post("/ver-mesas",protegerRutaAdmin, verMesas);
 router.get("/ver-mesas", protegerRutaAdmin, verMesas);
 
-router.get("/crear-reserva", protegerRutaAdmin, crearReserva);
-router.post("/crear-reserva", protegerRutaAdmin, guardarReserva);
+router.get("/cliente-presencial", protegerRutaAdmin, crearReserva);
+router.post("/cliente-presencial", protegerRutaAdmin, guardarReserva);
 
 router.get("/editar/:id", protegerRutaAdmin, editarMesa);
 router.post("/editar/:id", protegerRutaAdmin, guardarCambios);

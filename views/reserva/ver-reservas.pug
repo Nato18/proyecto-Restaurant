@@ -3,30 +3,28 @@ extends ../layout/opciones_usuario
 block opciones_moderador
     h2.tituloCategoria= pagina
 
-    div.etiquetasMesa
+    div.VerEtiquetasMesa
         p Fecha de Reserva
         p Hora de Reserva
         p.ocultarCelu Personas
-        p.ocultarCelu Comida
         p Estado 
         p.ocultarCelu Mesa
-        p Codigo
-        p.ocultarCelu
+        p Código
     div.datosReservas
         if reservas.length
             each reserva in reservas
-                div.datosReserva  
+                div.datosVerReserva
                     p= reserva.fecha
                     p= reserva.hora.hora
                     p.ocultarCelu= reserva.personas
-                    p.ocultarCelu= reserva.comida
+                    //- p.ocultarCelu= reserva.comida
                     if reserva.estadoId == null
                         p En Espera
                     else 
                         p= reserva.estado.estado
                     p.ocultarCelu= reserva.mesaId
                     if reserva.estado == null 
-                        p Sin Codigo
+                        p Sin Código
                     else
                         p= reserva.codigo
-                    a.btnOpcion(href=`/reserva/ver-mas/${reserva.id}`) Ver Mas
+                    a.btnOpcion.ocultarPc(href=`/reserva/ver-mas/${reserva.id}`) Ver Mas
