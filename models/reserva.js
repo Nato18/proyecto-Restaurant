@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
 
-const reserva = db.define("reserva", {
+const reserva = db.define("GestionClientes", {
   fecha: {
     type: DataTypes.DATEONLY,
     allowNull: false,

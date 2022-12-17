@@ -25,6 +25,9 @@ block opciones_moderador
         div.color 
             p.letraColor En mesa:
             div.colorEnMesa.divColor
+        div.color
+            p.letraColor Pedido Listo: 
+            div.colorPedidoListo.divColor
         div.color 
             p.letraColor Comida Servida: 
             div.colorComidaServida.divColor
@@ -43,14 +46,14 @@ block opciones_moderador
                             if reserva.mesaId == mesa.numero
                                 if reserva.tipo == "Presencial"
                                     a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
-                                    : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`) #{reserva.tipo} #{reserva.hora.hora} - 
+                                : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorPedidoListo' : reserva.estadoId == 6 ? 'colorComidaServida': reserva.estadoId == 7 ? 'colorSalida' : 'nada' } horaP`) #{reserva.tipo} #{reserva.hora.hora} - 
                                         if reserva.horaFinalId == null
                                             span Activo
                                         else 
                                             span= reserva.horasfinal.horafinal
                                 else 
                                     a(href=`/mesa/editar/${reserva.id}` target="_blank" class=`${reserva.estadoId == 1 ? 'colorAceptado' : reserva.estadoId == 3 ? 'colorNoLlegada'
-                                    : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorComidaServida' : reserva.estadoId == 6 ? 'colorSalida': 'nada' } horaP`) #{reserva.tipo} #{reserva.hora.hora} - 
+                                    : reserva.estadoId == 4 ? 'colorEnMesa' : reserva.estadoId == 5 ? 'colorPedidoListo' : reserva.estadoId == 6 ? 'colorComidaServida': reserva.estadoId == 7 ? 'colorSalida' : 'nada' } horaP`) #{reserva.tipo} #{reserva.hora.hora} - 
                                         if reserva.horaFinalId == null
                                             span Activo
                                         else 
@@ -70,4 +73,4 @@ block opciones_moderador
                             while n <= paginas
                                 a.numeroCantidad(href=`/mesa/ver-mesas?fecha=${fechas}&pagina=${n}`) #{n++}
     else
-        h2.tituloCategoria No hay reservas
+        h2.tituloCategoria No hay clientes

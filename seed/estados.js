@@ -12,6 +12,9 @@ const estados = [
     estado: "En mesa",
   },
   {
+    estado: "Pedido Listo",
+  },
+  {
     estado: "Comida Servida",
   },
   {

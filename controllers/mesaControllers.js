@@ -201,37 +201,37 @@ const editarMesa = async (req, res) => {
   const [estados] = await Promise.all([estado.findAll()]);
   const [mesas] = await Promise.all([mesa.findAll()]);
   const [horasFinal] = await Promise.all([horaFinal.findAll()]);
-  if (Reserva.reservaComida == null) {
-    res.render("mesa/editar-mesa", {
-      pagina: "Informacion",
-      datos: Reserva,
-      estados,
-      mesas,
-      horasFinal,
-      _token,
-      csrfToken: req.csrfToken(),
-    });
-  } else {
-    const comidas = Reserva.reservaComida.split(",");
-    const productos = await producto.findAll({
-      where: {
-        titulo: comidas,
-      },
-      include: [{ model: categoria, as: "categoria" }],
-    });
-    res.render("mesa/editar-mesa", {
-      pagina: "Informacion",
-      datos: Reserva,
-      estados,
-      mesas,
-      _token,
-      horasFinal,
-      productos,
-      comidas,
-      pedidoComida: true,
-      csrfToken: req.csrfToken(),
-    });
-  }
+  // if (Reserva.reservaComida == null) {
+  res.render("mesa/editar-mesa", {
+    pagina: "Información",
+    datos: Reserva,
+    estados,
+    mesas,
+    horasFinal,
+    _token,
+    csrfToken: req.csrfToken(),
+  });
+  // } else {
+  //   const comidas = Reserva.reservaComida.split(",");
+  //   const productos = await producto.findAll({
+  //     where: {
+  //       titulo: comidas,
+  //     },
+  //     include: [{ model: categoria, as: "categoria" }],
+  //   });
+  //   res.render("mesa/editar-mesa", {
+  //     pagina: "Información",
+  //     datos: Reserva,
+  //     estados,
+  //     mesas,
+  //     _token,
+  //     horasFinal,
+  //     productos,
+  //     comidas,
+  //     pedidoComida: true,
+  //     csrfToken: req.csrfToken(),
+  //   });
+  // }
 };
 
 const guardarCambios = async (req, res) => {
@@ -277,41 +277,41 @@ const guardarCambios = async (req, res) => {
       const [estados] = await Promise.all([estado.findAll()]);
       const [mesas] = await Promise.all([mesa.findAll()]);
       const [horasFinal] = await Promise.all([horaFinal.findAll()]);
-      if (Reserva.reservaComida == null) {
-        return res.render("mesa/editar-mesa", {
-          pagina: "Reservación",
-          datos: Reserva,
-          estados,
-          mesas,
-          horasFinal,
-          _token,
-          csrfToken: req.csrfToken(),
-          errores: resultado.array(),
-          user: req.usuario,
-        });
-      } else {
-        const comidas = Reserva.reservaComida.split(",");
-        const productos = await producto.findAll({
-          where: {
-            titulo: comidas,
-          },
-          include: [{ model: categoria, as: "categoria" }],
-        });
-        return res.render("mesa/editar-mesa", {
-          pagina: "Reservación",
-          datos: Reserva,
-          estados,
-          mesas,
-          _token,
-          productos,
-          horasFinal,
-          comidas,
-          pedidoComida: true,
-          csrfToken: req.csrfToken(),
-          errores: resultado.array(),
-          user: req.usuario,
-        });
-      }
+      // if (Reserva.reservaComida == null) {
+      return res.render("mesa/editar-mesa", {
+        pagina: "Reservación",
+        datos: Reserva,
+        estados,
+        mesas,
+        horasFinal,
+        _token,
+        csrfToken: req.csrfToken(),
+        errores: resultado.array(),
+        user: req.usuario,
+      });
+    //   } else {
+    //     const comidas = Reserva.reservaComida.split(",");
+    //     const productos = await producto.findAll({
+    //       where: {
+    //         titulo: comidas,
+    //       },
+    //       include: [{ model: categoria, as: "categoria" }],
+    //     });
+    //     return res.render("mesa/editar-mesa", {
+    //       pagina: "Reservación",
+    //       datos: Reserva,
+    //       estados,
+    //       mesas,
+    //       _token,
+    //       productos,
+    //       horasFinal,
+    //       comidas,
+    //       pedidoComida: true,
+    //       csrfToken: req.csrfToken(),
+    //       errores: resultado.array(),
+    //       user: req.usuario,
+    //     });
+    //   }
     }
   }
   const { id } = req.params;
@@ -508,7 +508,7 @@ const buscador = async (req, res) => {
   });
 
   res.render("mesa/buscador", {
-    pagina: "Resultado de Búsqueda",
+    pagina: "Gestionar Clientes",
     reservas,
     _token,
     csrfToken: req.csrfToken(),

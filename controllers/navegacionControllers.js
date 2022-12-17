@@ -32,7 +32,7 @@ const categoriaMenu = async (req, res) => {
     },
   });
   res.render("pagina/ver-menu", {
-    pagina: "Menu",
+    pagina: "Menú",
     productos,
     Categoria,
     _token,
